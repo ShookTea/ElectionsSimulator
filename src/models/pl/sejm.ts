@@ -2,6 +2,7 @@ import { PartyAbbreviation, PartyDefinition } from '@/models/pl/party-definition
 
 export type DistrictResult = {
   districtNumber: number;
+  population: number;
   totalVotes: number;
   results: Record<PartyAbbreviation, number>;
 }

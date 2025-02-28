@@ -3,6 +3,7 @@ import { Manifest } from '@/scripts/data-build/pl/sejm/types/manifest';
 import { Result } from '@/scripts/data-build/pl/sejm/types/result';
 import { Sejm } from '@/models/pl/sejm';
 import { getResults } from '@/scripts/data-build/pl/sejm/voting-results';
+import { buildPopulationData } from '@/scripts/data-build/pl/sejm/population-data';
 
 export default async function buildDataForSejm(): Promise<void> {
   console.log('Building data for Sejm');
@@ -22,7 +23,8 @@ async function buildForYear(year: number, manifestPath: string): Promise<void> {
 
   const manifest = loadManifestFromFile(manifestPath);
   const votingResults = await getResults(manifest);
-  const finalResult = convertToFinalResult(votingResults, manifest, year);
+  const populationData = await buildPopulationData(manifest);
+  const finalResult = convertToFinalResult(votingResults, populationData, manifest, year);
   const resultAsString = JSON.stringify(finalResult, null, 2);
   const fileContent = [
     'import { Sejm } from \'@/models/pl/sejm\';',
@@ -38,6 +40,7 @@ async function buildForYear(year: number, manifestPath: string): Promise<void> {
 
 function convertToFinalResult(
   resultsByDistrict: Record<number, Result>,
+  populationByDistrict: Record<number, number>,
   manifest: Manifest,
   year: number,
 ): Sejm {
@@ -48,6 +51,7 @@ function convertToFinalResult(
     districtResults: Object.entries(resultsByDistrict).map(([districtNumber, result]) => ({
         districtNumber: parseInt(districtNumber),
         totalVotes: result.totalVotes,
+        population: populationByDistrict[parseInt(districtNumber)],
         results: convertDistrictToFinalResult(result, manifest),
       })
     ),
