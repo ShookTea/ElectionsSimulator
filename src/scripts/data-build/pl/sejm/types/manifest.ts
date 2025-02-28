@@ -19,6 +19,8 @@ export type Manifest = {
   populationCsvColumns: {
     districtNumber: string;
     population: string;
+    districtType: string;
   };
+  populationIgnoreDistrictTypes: string[];
   partyDefinitions: PartyDefinition[];
 }

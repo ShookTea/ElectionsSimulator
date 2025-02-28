@@ -11,9 +11,11 @@
   },
   "populationFile": "sourceData/pl/sejm/2023_population.csv",
   "populationCsvColumns": {
-    "districtNumber": "Nr okręgu",
-    "population": "Mieszkańcy"
+    "districtNumber": "Okręg Sejm",
+    "population": "Mieszkańcy",
+    "districtType": "Typ obszaru"
   },
+  "populationIgnoreDistrictTypes": ["statek", "zagranica"],
   "partyDefinitions": [
     {
       "name": "Bezpartyjni Samorządowcy",
