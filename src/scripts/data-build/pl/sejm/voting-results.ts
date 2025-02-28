@@ -1,0 +1,77 @@
+import { Manifest } from '@/scripts/data-build/pl/sejm/types/manifest';
+import { Result } from '@/scripts/data-build/pl/sejm/types/result';
+import { createCsvParser } from '@/scripts/data-build/csv-reader';
+import { HeaderConfig } from '@/scripts/data-build/pl/sejm/types/header-config';
+
+export async function getResults(manifest: Manifest): Promise<Record<number, Result>> {
+  const parser = createCsvParser(manifest.file, manifest.csvOptions);
+  let headerConfig: HeaderConfig|null = null;
+
+  const resultsByDistrict: Record<number, Result> = {};
+
+  for await (const record of parser) {
+    if (!headerConfig) {
+      headerConfig = buildHeaderConfig(record, manifest);
+    } else {
+      const rowEntry = buildRowResult(record, headerConfig);
+      if (resultsByDistrict[rowEntry.districtNumber]) {
+        resultsByDistrict[rowEntry.districtNumber] = sumResults(resultsByDistrict[rowEntry.districtNumber], rowEntry);
+      } else {
+        resultsByDistrict[rowEntry.districtNumber] = rowEntry;
+      }
+    }
+  }
+
+  return resultsByDistrict;
+}
+
+function sumResults(result1: Result, result2: Result): Result {
+  const partyResults: Record<string, number> = {};
+  Object.keys(result1.partyResults).forEach((party) => {
+    partyResults[party] = (result1.partyResults[party] || 0) + (result2.partyResults[party] || 0);
+  });
+
+  return {
+    districtNumber: result1.districtNumber,
+    totalVotes: result1.totalVotes + result2.totalVotes,
+    partyResults,
+  };
+}
+
+function buildRowResult(row: string[], headerConfig: HeaderConfig): Result {
+  const districtNumber = parseInt(row[headerConfig.districtNumber]);
+  let totalVotes = 0;
+
+  const partyResults: Record<string, number> = {};
+  Object.entries(headerConfig.partyColumns).forEach(([columnName, index]) => {
+    const votes = parseInt(row[index]);
+    if (isNaN(votes)) {
+      partyResults[columnName] = 0;
+    } else {
+      partyResults[columnName] = votes;
+      totalVotes += votes;
+    }
+  });
+
+  return {
+    districtNumber,
+    totalVotes,
+    partyResults,
+  };
+}
+
+function buildHeaderConfig(headerRow: string[], manifest: Manifest): HeaderConfig {
+  const partyColumns: Record<string, number> = {};
+  manifest.partyDefinitions.forEach((partyDefinition) => {
+    const index = headerRow.indexOf(partyDefinition.columnName);
+    if (index === -1) {
+      throw new Error(`Column ${partyDefinition.columnName} not found in header`);
+    }
+    partyColumns[partyDefinition.columnName] = index;
+  });
+
+  return {
+    districtNumber: headerRow.indexOf(manifest.electionCsvColumns.districtNumber),
+    partyColumns,
+  };
+}
