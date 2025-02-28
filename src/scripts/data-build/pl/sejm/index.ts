@@ -3,6 +3,7 @@ import { Manifest } from '@/scripts/data-build/pl/sejm/types/manifest';
 import * as path from 'node:path';
 import { parse, Parser } from 'csv-parse';
 import { HeaderConfig } from '@/scripts/data-build/pl/sejm/types/header-config';
+import { Result } from '@/scripts/data-build/pl/sejm/types/result';
 
 export default async function buildDataForSejm(dirPath: string): Promise<void> {
   console.log('Building data for Sejm');
@@ -26,13 +27,57 @@ async function buildForYear(year: number, manifestPath: string): Promise<void> {
   const parser = createCsvParserForManifest(dataPath, manifest);
   let headerConfig: HeaderConfig|null = null;
 
+  const resultsByDistrict: Record<number, Result> = {};
+
   for await (const record of parser) {
     if (!headerConfig) {
       headerConfig = buildHeaderConfig(record, manifest);
     } else {
-      console.log(record);
+      const rowEntry = buildRowResult(record, headerConfig);
+      if (resultsByDistrict[rowEntry.districtNumber]) {
+        resultsByDistrict[rowEntry.districtNumber] = sumResults(resultsByDistrict[rowEntry.districtNumber], rowEntry);
+      } else {
+        resultsByDistrict[rowEntry.districtNumber] = rowEntry;
+      }
     }
   }
+
+  console.log(resultsByDistrict);
+}
+
+function sumResults(result1: Result, result2: Result): Result {
+  const partyResults: Record<string, number> = {};
+  Object.keys(result1.partyResults).forEach((party) => {
+    partyResults[party] = (result1.partyResults[party] || 0) + (result2.partyResults[party] || 0);
+  });
+
+  return {
+    districtNumber: result1.districtNumber,
+    totalVotes: result1.totalVotes + result2.totalVotes,
+    partyResults,
+  };
+}
+
+function buildRowResult(row: string[], headerConfig: HeaderConfig): Result {
+  const districtNumber = parseInt(row[headerConfig.districtNumber]);
+  let totalVotes = 0;
+
+  const partyResults: Record<string, number> = {};
+  Object.entries(headerConfig.partyColumns).forEach(([columnName, index]) => {
+    const votes = parseInt(row[index]);
+    if (isNaN(votes)) {
+      partyResults[columnName] = 0;
+    } else {
+      partyResults[columnName] = votes;
+      totalVotes += votes;
+    }
+  });
+
+  return {
+    districtNumber,
+    totalVotes,
+    partyResults,
+  };
 }
 
 function buildHeaderConfig(headerRow: string[], manifest: Manifest): HeaderConfig {
@@ -58,7 +103,6 @@ function createCsvParserForManifest(dataPath: string, manifest: Manifest): Parse
     delimiter: manifest.csvOptions.delimiter,
     record_delimiter: manifest.csvOptions.recordDelimiter,
     trim: true,
-    to: 1,
   }));
 }
 
