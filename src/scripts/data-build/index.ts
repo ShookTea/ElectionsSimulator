@@ -1,8 +1,10 @@
 import buildDataForPoland from '@/scripts/data-build/pl';
 
-buildData();
-
-function buildData(): void {
+async function buildData(): Promise<void> {
   const path = 'sourceData';
-  buildDataForPoland(path);
+  await buildDataForPoland(path);
 }
+
+(async () => {
+  await buildData();
+})();

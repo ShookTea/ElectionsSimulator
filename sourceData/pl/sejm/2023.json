@@ -1,3 +1,9 @@
 {
-  "file": "2023.csv"
+  "file": "2023.csv",
+  "csvOptions": {
+    "bom": true,
+    "quote": "\"",
+    "delimiter": ";",
+    "recordDelimiter": "\n"
+  }
 }
