@@ -1,3 +1,5 @@
+import { CsvOptions } from '@/scripts/data-build/csv-reader';
+
 export type PartyDefinition = {
   name: string;
   abbreviation: string;
@@ -9,12 +11,7 @@ export type PartyDefinition = {
 
 export type Manifest = {
   file: string;
-  csvOptions: {
-    bom: boolean;
-    quote: string;
-    delimiter: string;
-    recordDelimiter: string;
-  };
+  csvOptions: CsvOptions;
   electionCsvColumns: {
     districtNumber: string;
   };

@@ -5,6 +5,7 @@ import { parse, Parser } from 'csv-parse';
 import { HeaderConfig } from '@/scripts/data-build/pl/sejm/types/header-config';
 import { Result } from '@/scripts/data-build/pl/sejm/types/result';
 import { Sejm } from '@/models/pl/sejm';
+import { createCsvParser } from '@/scripts/data-build/csv-reader';
 
 export default async function buildDataForSejm(): Promise<void> {
   console.log('Building data for Sejm');
@@ -38,7 +39,7 @@ async function buildForYear(year: number, manifestPath: string): Promise<void> {
 }
 
 async function getResultsFromManifest(year: number, manifest: Manifest): Promise<Sejm> {
-  const parser = createCsvParserForManifest(manifest);
+  const parser = createCsvParser(manifest.file, manifest.csvOptions);
   let headerConfig: HeaderConfig|null = null;
 
   const resultsByDistrict: Record<number, Result> = {};
@@ -136,16 +137,6 @@ function buildHeaderConfig(headerRow: string[], manifest: Manifest): HeaderConfi
     districtNumber: headerRow.indexOf(manifest.electionCsvColumns.districtNumber),
     partyColumns,
   };
-}
-
-function createCsvParserForManifest(manifest: Manifest): Parser {
-  return fs.createReadStream(manifest.file, 'utf-8').pipe(parse({
-    bom: manifest.csvOptions.bom,
-    quote: manifest.csvOptions.quote,
-    delimiter: manifest.csvOptions.delimiter,
-    record_delimiter: manifest.csvOptions.recordDelimiter,
-    trim: true,
-  }));
 }
 
 function loadManifestFromFile(path: string): Manifest {
