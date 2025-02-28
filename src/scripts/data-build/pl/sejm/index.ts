@@ -2,6 +2,7 @@ import * as fs from 'node:fs';
 import { Manifest } from '@/scripts/data-build/pl/sejm/types/manifest';
 import * as path from 'node:path';
 import { parse, Parser } from 'csv-parse';
+import { HeaderConfig } from '@/scripts/data-build/pl/sejm/types/header-config';
 
 export default async function buildDataForSejm(dirPath: string): Promise<void> {
   console.log('Building data for Sejm');
@@ -23,16 +24,31 @@ async function buildForYear(year: number, manifestPath: string): Promise<void> {
   const dataPath = `${path.dirname(manifestPath)}/${manifest.file}`;
 
   const parser = createCsvParserForManifest(dataPath, manifest);
-  let headerRow: string[] | null = null;
+  let headerConfig: HeaderConfig|null = null;
 
   for await (const record of parser) {
-    if (!headerRow) {
-      headerRow = record;
-      console.log(headerRow);
+    if (!headerConfig) {
+      headerConfig = buildHeaderConfig(record, manifest);
     } else {
       console.log(record);
     }
   }
+}
+
+function buildHeaderConfig(headerRow: string[], manifest: Manifest): HeaderConfig {
+  const partyColumns: Record<string, number> = {};
+  manifest.partyDefinitions.forEach((partyDefinition) => {
+    const index = headerRow.indexOf(partyDefinition.columnName);
+    if (index === -1) {
+      throw new Error(`Column ${partyDefinition.columnName} not found in header`);
+    }
+    partyColumns[partyDefinition.columnName] = index;
+  });
+
+  return {
+    districtNumber: headerRow.indexOf(manifest.electionCsvColumns.districtNumber),
+    partyColumns,
+  };
 }
 
 function createCsvParserForManifest(dataPath: string, manifest: Manifest): Parser {

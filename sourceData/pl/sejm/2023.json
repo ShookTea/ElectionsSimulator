@@ -5,5 +5,80 @@
     "quote": "\"",
     "delimiter": ";",
     "recordDelimiter": "\n"
-  }
+  },
+  "electionCsvColumns": {
+    "districtNumber": "Nr okręgu"
+  },
+  "partyDefinitions": [
+    {
+      "name": "Bezpartyjni Samorządowcy",
+      "abbreviation": "BS",
+      "columnName": "KOMITET WYBORCZY BEZPARTYJNI SAMORZĄDOWCY",
+      "color": "#000000"
+    },
+    {
+      "name": "Trzecia Droga",
+      "abbreviation": "TD",
+      "columnName": "KOALICYJNY KOMITET WYBORCZY TRZECIA DROGA POLSKA 2050 SZYMONA HOŁOWNI - POLSKIE STRONNICTWO LUDOWE",
+      "color": "#1BB100",
+      "coalition": true
+    },
+    {
+      "name": "Nowa Lewica",
+      "abbreviation": "NL",
+      "columnName": "KOMITET WYBORCZY NOWA LEWICA",
+      "color": "#ED2846"
+    },
+    {
+      "name": "Prawo i Sprawiedliwość",
+      "abbreviation": "PiS",
+      "columnName": "KOMITET WYBORCZY PRAWO I SPRAWIEDLIWOŚĆ",
+      "color": "#073A76"
+    },
+    {
+      "name": "Konfederacja",
+      "abbreviation": "KONF",
+      "columnName": "KOMITET WYBORCZY KONFEDERACJA WOLNOŚĆ I NIEPODLEGŁOŚĆ",
+      "color": "#10069F"
+    },
+    {
+      "name": "Koalicja Obywatelska",
+      "abbreviation": "KO",
+      "columnName": "KOALICYJNY KOMITET WYBORCZY KOALICJA OBYWATELSKA PO .N IPL ZIELONI",
+      "color": "#E19F39",
+      "coalition": true
+    },
+    {
+      "name": "Polska Jest Jedna",
+      "abbreviation": "PJJ",
+      "columnName": "KOMITET WYBORCZY POLSKA JEST JEDNA"
+    },
+    {
+      "name": "Ruch Dobrobytu i Pokoju",
+      "abbreviation": "RDiP",
+      "columnName": "KOMITET WYBORCZY WYBORCÓW RUCHU DOBROBYTU I POKOJU"
+    },
+    {
+      "name": "Normalny Kraj",
+      "abbreviation": "NK",
+      "columnName": "KOMITET WYBORCZY NORMALNY KRAJ"
+    },
+    {
+      "name": "Antypartia",
+      "abbreviation": "AP",
+      "columnName": "KOMITET WYBORCZY ANTYPARTIA"
+    },
+    {
+      "name": "Ruch Naprawy Polski",
+      "abbreviation": "RNP",
+      "columnName": "KOMITET WYBORCZY RUCH NAPRAWY POLSKI"
+    },
+    {
+      "name": "Mniejszość Niemiecka",
+      "abbreviation": "MN",
+      "columnName": "KOMITET WYBORCZY WYBORCÓW MNIEJSZOŚĆ NIEMIECKA",
+      "color": "#666666",
+      "nationalMinority": true
+    }
+  ]
 }
