@@ -1,8 +1,7 @@
 import buildDataForSejm from '@/scripts/data-build/pl/sejm';
 
-export default async function buildDataForPoland(dirPath: string): Promise<void> {
+export default async function buildDataForPoland(): Promise<void> {
   console.log('Building data for Poland started');
-  const mainPath = `${dirPath}/pl`;
-  await buildDataForSejm(mainPath);
+  await buildDataForSejm();
   console.log('Building data for Poland completed');
 }

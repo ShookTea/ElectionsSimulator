@@ -5,9 +5,9 @@ import { parse, Parser } from 'csv-parse';
 import { HeaderConfig } from '@/scripts/data-build/pl/sejm/types/header-config';
 import { Result } from '@/scripts/data-build/pl/sejm/types/result';
 
-export default async function buildDataForSejm(dirPath: string): Promise<void> {
+export default async function buildDataForSejm(): Promise<void> {
   console.log('Building data for Sejm');
-  const path = `${dirPath}/sejm`;
+  const path = `sourceData/pl/sejm`;
 
   await Promise.all(fs.readdirSync(path).map(async (yearFile) => {
     const [year, extension] = yearFile.split('.');
