@@ -1,5 +1,5 @@
 {
-  "file": "2023.csv",
+  "file": "sourceData/pl/sejm/2023.csv",
   "csvOptions": {
     "bom": true,
     "quote": "\"",

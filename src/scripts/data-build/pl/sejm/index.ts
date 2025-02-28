@@ -23,8 +23,7 @@ async function buildForYear(year: number, manifestPath: string): Promise<void> {
   console.log('Building data for Sejm year', year);
 
   const manifest = loadManifestFromFile(manifestPath);
-  const dataPath = `${path.dirname(manifestPath)}/${manifest.file}`;
-  const result = await getResultsFromManifest(year, manifest, dataPath);
+  const result = await getResultsFromManifest(year, manifest);
   const resultAsString = JSON.stringify(result, null, 2);
   const fileContent = [
     'import { Sejm } from \'@/models/pl/sejm\';',
@@ -38,8 +37,8 @@ async function buildForYear(year: number, manifestPath: string): Promise<void> {
   fs.writeFileSync(`src/data/pl/sejm/${year}.ts`, fileContent);
 }
 
-async function getResultsFromManifest(year: number, manifest: Manifest, dataPath: string): Promise<Sejm> {
-  const parser = createCsvParserForManifest(dataPath, manifest);
+async function getResultsFromManifest(year: number, manifest: Manifest): Promise<Sejm> {
+  const parser = createCsvParserForManifest(manifest);
   let headerConfig: HeaderConfig|null = null;
 
   const resultsByDistrict: Record<number, Result> = {};
@@ -139,8 +138,8 @@ function buildHeaderConfig(headerRow: string[], manifest: Manifest): HeaderConfi
   };
 }
 
-function createCsvParserForManifest(dataPath: string, manifest: Manifest): Parser {
-  return fs.createReadStream(dataPath, 'utf-8').pipe(parse({
+function createCsvParserForManifest(manifest: Manifest): Parser {
+  return fs.createReadStream(manifest.file, 'utf-8').pipe(parse({
     bom: manifest.csvOptions.bom,
     quote: manifest.csvOptions.quote,
     delimiter: manifest.csvOptions.delimiter,
