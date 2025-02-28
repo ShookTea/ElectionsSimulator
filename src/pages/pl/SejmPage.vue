@@ -9,6 +9,7 @@ const props = defineProps<{
 const data = ref<Sejm | null>(null);
 
 const loadData = (year: string) => {
+  // noinspection TypeScriptCheckImport
   import(`../../data/pl/sejm/${year}.ts`).then((module) => {
     data.value = module.default;
   }).catch((error) => {
