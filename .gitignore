@@ -26,3 +26,6 @@ coverage
 *.sw?
 
 *.tsbuildinfo
+
+# Loaded data from elections
+src/data/
