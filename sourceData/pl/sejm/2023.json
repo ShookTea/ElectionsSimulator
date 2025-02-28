@@ -9,6 +9,11 @@
   "electionCsvColumns": {
     "districtNumber": "Nr okręgu"
   },
+  "populationFile": "sourceData/pl/sejm/2023_population.csv",
+  "populationCsvColumns": {
+    "districtNumber": "Nr okręgu",
+    "population": "Mieszkańcy"
+  },
   "partyDefinitions": [
     {
       "name": "Bezpartyjni Samorządowcy",

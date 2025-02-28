@@ -18,5 +18,10 @@ export type Manifest = {
   electionCsvColumns: {
     districtNumber: string;
   };
+  populationFile: string;
+  populationCsvColumns: {
+    districtNumber: string;
+    population: string;
+  };
   partyDefinitions: PartyDefinition[];
 }
