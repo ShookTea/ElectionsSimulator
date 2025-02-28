@@ -1,5 +1,8 @@
-buildFunction();
+import buildDataForPoland from '@/scripts/data-build/pl';
 
-function buildFunction(): void {
-  console.log('Hello, world!');
+buildData();
+
+function buildData(): void {
+  const path = 'sourceData';
+  buildDataForPoland(path);
 }
