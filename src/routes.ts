@@ -3,7 +3,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 const routes: RouteRecordRaw[] = [
   {
     path: '/pl/sejm/:year',
-    component: () => import('./components/pl/Sejm.vue'),
+    component: () => import('./pages/pl/SejmPage.vue'),
     props: true,
   },
   // {
