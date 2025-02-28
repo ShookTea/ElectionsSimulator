@@ -4,6 +4,7 @@ import * as path from 'node:path';
 import { parse, Parser } from 'csv-parse';
 import { HeaderConfig } from '@/scripts/data-build/pl/sejm/types/header-config';
 import { Result } from '@/scripts/data-build/pl/sejm/types/result';
+import { Sejm } from '@/models/pl/sejm';
 
 export default async function buildDataForSejm(): Promise<void> {
   console.log('Building data for Sejm');
@@ -23,7 +24,21 @@ async function buildForYear(year: number, manifestPath: string): Promise<void> {
 
   const manifest = loadManifestFromFile(manifestPath);
   const dataPath = `${path.dirname(manifestPath)}/${manifest.file}`;
+  const result = await getResultsFromManifest(year, manifest, dataPath);
+  const resultAsString = JSON.stringify(result, null, 2);
+  const fileContent = [
+    'import { Sejm } from \'@/models/pl/sejm\';',
+    '',
+    'const data: Sejm = ' + resultAsString,
+    '',
+    'export default data;',
+  ].join('\n');
 
+  fs.mkdirSync('src/data/pl/sejm', { recursive: true });
+  fs.writeFileSync(`src/data/pl/sejm/${year}.ts`, fileContent);
+}
+
+async function getResultsFromManifest(year: number, manifest: Manifest, dataPath: string): Promise<Sejm> {
   const parser = createCsvParserForManifest(dataPath, manifest);
   let headerConfig: HeaderConfig|null = null;
 
@@ -42,7 +57,34 @@ async function buildForYear(year: number, manifestPath: string): Promise<void> {
     }
   }
 
-  console.log(resultsByDistrict);
+  return convertToFinalResult(resultsByDistrict, manifest, year);
+}
+
+function convertToFinalResult(
+  resultsByDistrict: Record<number, Result>,
+  manifest: Manifest,
+  year: number,
+): Sejm {
+  return {
+    year,
+    partyDefinitions: manifest.partyDefinitions,
+    districtResults: Object.entries(resultsByDistrict).map(([districtNumber, result]) => ({
+        districtNumber: parseInt(districtNumber),
+        totalVotes: result.totalVotes,
+        results: convertDistrictToFinalResult(result, manifest),
+      })
+    ),
+  }
+}
+
+function convertDistrictToFinalResult(result: Result, manifest: Manifest): Record<string, number> {
+  return Object.fromEntries(
+    Object.entries(result.partyResults)
+      .map(([party, votes]) => ([
+        manifest.partyDefinitions.find((partyDefinition) => partyDefinition.columnName === party)?.abbreviation,
+        votes,
+      ]))
+  );
 }
 
 function sumResults(result1: Result, result2: Result): Result {

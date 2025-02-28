@@ -10,7 +10,8 @@ export type PartyDefinition = {
 
 export type DistrictResult = {
   districtNumber: number;
-  results: Record<PartyAbbreviation, number>;
+  totalVotes: number;
+  results: Record<string, number>;
 }
 
 export type Sejm = {

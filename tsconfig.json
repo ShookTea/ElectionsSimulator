@@ -5,6 +5,7 @@
     "paths": {
       "@/*": [ "./src/*" ]
     },
+    "baseUrl": ".",
     "allowJs": true,
     "skipLibCheck": true,
     "isolatedModules": true,

@@ -1,4 +1,5 @@
-<script setup>
+<script lang="ts" setup>
+import sejm2023 from '@/data/pl/sejm/2023';
 
 </script>
 
@@ -8,7 +9,7 @@
   </header>
 
   <main>
-    Main block
+    {{ sejm2023 }}
   </main>
 </template>
 
