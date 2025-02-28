@@ -67,7 +67,8 @@ function convertToFinalResult(
 ): Sejm {
   return {
     year,
-    partyDefinitions: manifest.partyDefinitions,
+    partyDefinitions: manifest.partyDefinitions
+      .map(({ columnName, ...rest}) => ({ ...rest })),
     districtResults: Object.entries(resultsByDistrict).map(([districtNumber, result]) => ({
         districtNumber: parseInt(districtNumber),
         totalVotes: result.totalVotes,
