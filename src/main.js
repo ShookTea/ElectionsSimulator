@@ -2,10 +2,13 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from '@/routes';
 import i18n from '@/i18n';
-import { OhVueIcon } from 'oh-vue-icons';
+import { OhVueIcon, addIcons } from 'oh-vue-icons';
+import { MdLanguage } from 'oh-vue-icons/icons';
+
+addIcons(MdLanguage);
 
 createApp(App)
-  .component('VIcon', OhVueIcon)
+  .component('v-icon', OhVueIcon)
   .use(router)
   .use(i18n)
   .mount('#app');

@@ -30,7 +30,7 @@ const options = ref({
       </div>
     </div>
     <div class="language-picker">
-      Language: <LanguagePicker />
+      <v-icon name="md-language"/> <LanguagePicker />
     </div>
   </header>
 </template>
@@ -70,5 +70,9 @@ h1 {
 
 .language-picker {
   margin-right: 3rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 0.5em;
 }
 </style>
