@@ -1,7 +1,7 @@
 import * as fs from 'node:fs';
 import { Manifest } from '@/scripts/data-build/pl/sejm/types/manifest';
 import { Result } from '@/scripts/data-build/pl/sejm/types/result';
-import { Sejm } from '@/models/pl/sejm';
+import { DistrictResult, Sejm } from '@/models/pl/sejm';
 import { getResults } from '@/scripts/data-build/pl/sejm/voting-results';
 import { buildPopulationData } from '@/scripts/data-build/pl/sejm/population-data';
 
@@ -10,10 +10,10 @@ export default async function buildDataForSejm(): Promise<void> {
   const path = `sourceData/pl/sejm`;
 
   await Promise.all(fs.readdirSync(path).map(async (yearFile) => {
-    const [year, extension] = yearFile.split('.');
+    const [ year, extension ] = yearFile.split('.');
     const yearNumber = parseInt(year);
     if (extension === 'json') {
-      await buildForYear(yearNumber, `${path}/${yearFile}`);
+      await buildForYear(yearNumber, `${ path }/${ yearFile }`);
     }
   }));
 }
@@ -34,8 +34,8 @@ async function buildForYear(year: number, manifestPath: string): Promise<void> {
     'export default data;',
   ].join('\n');
 
-  fs.mkdirSync('src/data/pl/sejm', { recursive: true });
-  fs.writeFileSync(`src/data/pl/sejm/${year}.ts`, fileContent);
+  fs.mkdirSync('src/data/pl/sejm', {recursive: true});
+  fs.writeFileSync(`src/data/pl/sejm/${ year }.ts`, fileContent);
 }
 
 function convertToFinalResult(
@@ -47,13 +47,19 @@ function convertToFinalResult(
   return {
     year,
     partyDefinitions: manifest.partyDefinitions
-      .map(({ columnName, ...rest}) => ({ ...rest })),
-    districtResults: Object.entries(resultsByDistrict).map(([districtNumber, result]) => ({
-        districtNumber: parseInt(districtNumber),
-        totalVotes: result.totalVotes,
-        population: populationByDistrict[parseInt(districtNumber)],
-        results: convertDistrictToFinalResult(result, manifest),
-      })
+      .map(({columnName, ...rest}) => ({...rest})),
+    districtResults: Object.entries(resultsByDistrict).map(([ districtNumber, result ]) => {
+        const districtResult: DistrictResult = {
+          districtNumber: parseInt(districtNumber),
+          totalVotes: result.totalVotes,
+          population: populationByDistrict[parseInt(districtNumber)],
+          results: convertDistrictToFinalResult(result, manifest),
+        };
+        if (manifest.numberOfMandatesOverride && manifest.numberOfMandatesOverride[districtNumber]) {
+          districtResult.numberOfMandatesUsed = manifest.numberOfMandatesOverride[districtNumber];
+        }
+        return districtResult;
+      },
     ),
   }
 }
@@ -61,12 +67,13 @@ function convertToFinalResult(
 function convertDistrictToFinalResult(result: Result, manifest: Manifest): Record<string, number> {
   return Object.fromEntries(
     Object.entries(result.partyResults)
-      .map(([party, votes]) => ([
+      .map(([ party, votes ]) => ([
         manifest.partyDefinitions.find((partyDefinition) => partyDefinition.columnName === party)?.abbreviation,
         votes,
-      ]))
+      ])),
   );
 }
+
 function loadManifestFromFile(path: string): Manifest {
   return JSON.parse(fs.readFileSync(path, 'utf8')) as Manifest;
 }
