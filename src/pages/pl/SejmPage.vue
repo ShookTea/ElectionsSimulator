@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue';
 import { Sejm } from '@/models/pl/sejm';
+import SejmComponent from '@/components/pl/sejm/SejmComponent.vue';
 
 const props = defineProps<{
   year: string;
@@ -26,7 +27,5 @@ watch(() => props.year, (year) => {
 </script>
 
 <template>
-  <div>
-    {{ data }}
-  </div>
+  <SejmComponent v-if="data" :data="data" />
 </template>
