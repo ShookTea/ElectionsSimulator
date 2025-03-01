@@ -40,32 +40,47 @@ const finalResultsByParty = computed<Record<PartyAbbreviation, number>>(() => {
 </script>
 
 <template>
-  <div class="sejm-component">
-    <DistrictMagnitudeConfiguration :data="props.data" v-model="seatDistribution"/>
-    <ThresholdPicker
-        v-model:main-threshold="mainThreshold"
-        v-model:coalition-threshold="coalitionThreshold"
-        v-model:national-minority-threshold="nationalMinorityThreshold"
-    />
-    <PartyChart
-        :parties="props.data.partyDefinitions"
-        :allowed-parties="partyAbbreviationsAboveThreshold"
-        :mandates-by-party="finalResultsByParty"
-    />
-    <PartyTable
-        :parties="props.data.partyDefinitions"
-        :allowed-parties="partyAbbreviationsAboveThreshold"
-        :mandates-by-party="finalResultsByParty"
-    />
+  <div class="sejm-component-root">
+    <div class="sejm-component">
+      <DistrictMagnitudeConfiguration :data="props.data" v-model="seatDistribution"/>
+      <ThresholdPicker
+          v-model:main-threshold="mainThreshold"
+          v-model:coalition-threshold="coalitionThreshold"
+          v-model:national-minority-threshold="nationalMinorityThreshold"
+      />
+      <PartyChart
+          :parties="props.data.partyDefinitions"
+          :allowed-parties="partyAbbreviationsAboveThreshold"
+          :mandates-by-party="finalResultsByParty"
+      />
+      <PartyTable
+          :parties="props.data.partyDefinitions"
+          :allowed-parties="partyAbbreviationsAboveThreshold"
+          :mandates-by-party="finalResultsByParty"
+      />
+    </div>
   </div>
 </template>
 
 <style scoped>
+.sejm-component-root {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 .sejm-component {
   display: flex;
   flex-direction: column;
   align-items: stretch;
   gap: 1rem;
-  margin-top: 1rem;
+  margin: 1rem 0 0 0;
+  width: 40%;
+}
+
+@media (max-width: 768px) {
+  .sejm-component {
+    width: 100%;
+    padding: 0 4em;
+  }
 }
 </style>

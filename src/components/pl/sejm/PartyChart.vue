@@ -62,5 +62,15 @@ const chartData = computed<ChartData<'doughnut'>>(() => {
 </script>
 
 <template>
-  <Doughnut id="polish-sejm-party-chart" :options="options" :data="chartData"/>
+  <div class="party-chart">
+    <Doughnut id="polish-sejm-party-chart" :options="options" :data="chartData"/>
+  </div>
 </template>
+
+<style scoped>
+.party-chart {
+  max-height: 300px;
+  display: flex;
+  justify-content: center;
+}
+</style>
