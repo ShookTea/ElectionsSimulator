@@ -46,7 +46,10 @@ const finalResultsByParty = computed<Record<PartyAbbreviation, number>>(() => {
         v-model:coalition-threshold="coalitionThreshold"
         v-model:national-minority-threshold="nationalMinorityThreshold"
     />
-    <PartyTable :parties="props.data.partyDefinitions" />
-    {{finalResultsByParty}}
+    <PartyTable
+        :parties="props.data.partyDefinitions"
+        :allowed-parties="partyAbbreviationsAboveThreshold"
+        :mandates-by-party="finalResultsByParty"
+    />
   </div>
 </template>

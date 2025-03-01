@@ -1,8 +1,10 @@
 <script lang="ts" setup>
-import { PartyDefinition } from '@/models/pl/party-definition';
+import { PartyAbbreviation, PartyDefinition } from '@/models/pl/party-definition';
 
 defineProps<{
   parties: PartyDefinition[];
+  allowedParties: PartyAbbreviation[];
+  mandatesByParty: Record<PartyAbbreviation, number>;
 }>();
 </script>
 
@@ -12,22 +14,33 @@ defineProps<{
       <tr>
         <th></th>
         <th>Party</th>
+        <th>Abbr</th>
         <th>Seats</th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="party in parties" :key="party.abbreviation">
+      <tr v-for="party in allowedParties" :key="party">
         <td class="party-color" :style="{
-          'background-color': party.color
+          'background-color': parties.find(p => p.abbreviation === party)?.color
         }"></td>
-        <td>{{ party.name }}</td>
-        <td>0</td>
+        <td>{{ parties.find(p => p.abbreviation === party)?.name }}</td>
+        <td>{{ party }}</td>
+        <td>{{ mandatesByParty[party] ?? 0 }}</td>
       </tr>
     </tbody>
   </table>
 </template>
 
 <style scoped>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 5px;
+}
+
 .party-color {
   width: 5px;
 }
