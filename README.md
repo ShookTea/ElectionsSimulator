@@ -1,5 +1,8 @@
 # Elections Simulator
 
+See the application at [https://shooktea.github.io/ElectionsSimulator](https://shooktea.github.io/ElectionsSimulator)
+
+
 Setup project:
 ```bash
 npm install
