@@ -1,5 +1,9 @@
 import { PartyAbbreviation, PartyDefinition } from '@/models/pl/party-definition';
 
+export type MandateOverrideReason =
+  | 'wrong_data'
+  | 'lack_of_data';
+
 export type DistrictResult = {
   districtNumber: number;
   population: number;
@@ -13,4 +17,5 @@ export type Sejm = {
   year: number;
   partyDefinitions: PartyDefinition[];
   districtResults: DistrictResult[];
+  mandateOverrideReason: MandateOverrideReason;
 }

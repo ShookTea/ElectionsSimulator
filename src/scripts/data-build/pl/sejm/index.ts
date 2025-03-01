@@ -47,6 +47,7 @@ function convertToFinalResult(
 ): Sejm {
   return {
     year,
+    mandateOverrideReason: manifest.overrideReason ?? 'wrong_data',
     partyDefinitions: manifest.partyDefinitions
       .map(({columnName, ...rest}) => ({...rest})),
     districtResults: Object.entries(resultsByDistrict).map(([ districtNumber, result ]) => {

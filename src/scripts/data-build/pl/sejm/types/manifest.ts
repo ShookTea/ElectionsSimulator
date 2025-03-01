@@ -1,4 +1,5 @@
 import { CsvOptions } from '@/scripts/data-build/csv-reader';
+import { MandateOverrideReason } from '@/models/pl/sejm';
 
 export type PartyDefinition = {
   name: string;
@@ -26,6 +27,7 @@ export type Manifest = {
 
   // The real number of mandates used in the district, in case it differs from the calculated number.
   numberOfMandatesOverride?: Record<string, number>;
+  overrideReason?: MandateOverrideReason;
 
   partyDefinitions: PartyDefinition[];
 }
