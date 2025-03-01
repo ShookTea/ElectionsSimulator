@@ -2,14 +2,18 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
 const routes: RouteRecordRaw[] = [
   {
+    path: '/',
+    redirect: '/pl/sejm/2023',
+  },
+  {
     path: '/pl/sejm/:year',
     component: () => import('./pages/pl/SejmPage.vue'),
     props: true,
   },
-  // {
-    // path: '/:notFoundMatch(.*)',
-    // redirect: '/',
-  // }
+  {
+    path: '/:notFoundMatch(.*)',
+    redirect: '/',
+  }
 ];
 
 const router = createRouter({

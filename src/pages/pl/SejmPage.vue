@@ -2,10 +2,13 @@
 import { ref, watch } from 'vue';
 import { Sejm } from '@/models/pl/sejm';
 import SejmComponent from '@/components/pl/sejm/SejmComponent.vue';
+import { useRouter } from 'vue-router';
 
 const props = defineProps<{
   year: string;
 }>();
+
+const router = useRouter();
 
 const data = ref<Sejm | null>(null);
 
@@ -13,8 +16,8 @@ const loadData = (year: string) => {
   // noinspection TypeScriptCheckImport
   import(`../../data/pl/sejm/${year}.ts`).then((module) => {
     data.value = module.default;
-  }).catch((error) => {
-    console.error(error);
+  }).catch(() => {
+    router.push('/');
   });
 };
 
