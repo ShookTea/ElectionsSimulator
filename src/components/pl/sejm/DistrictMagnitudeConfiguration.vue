@@ -45,11 +45,9 @@ watch(() => seatDistribution.value, (newValue) => {
 </script>
 
 <template>
-  <div>
-    <NumberOfSeatsPicker
-        :default-number-of-seats="460"
-        :show-real-seats-toggle="Object.keys(mandateOverrides).length > 0"
-        v-model:number-of-seats="numberOfSeats"
-        v-model:use-real-seats="useRealSeats"/>
-  </div>
+  <NumberOfSeatsPicker
+      :default-number-of-seats="460"
+      :show-real-seats-toggle="Object.keys(mandateOverrides).length > 0"
+      v-model:number-of-seats="numberOfSeats"
+      v-model:use-real-seats="useRealSeats"/>
 </template>
