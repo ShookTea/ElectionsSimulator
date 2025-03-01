@@ -9,13 +9,14 @@ export default async function buildDataForSejm(): Promise<void> {
   console.log('Building data for Sejm');
   const path = `sourceData/pl/sejm`;
 
-  await Promise.all(fs.readdirSync(path).map(async (yearFile) => {
+  const files = fs.readdirSync(path);
+  for (const yearFile of files) {
     const [ year, extension ] = yearFile.split('.');
     const yearNumber = parseInt(year);
     if (extension === 'json') {
       await buildForYear(yearNumber, `${ path }/${ yearFile }`);
     }
-  }));
+  }
 }
 
 async function buildForYear(year: number, manifestPath: string): Promise<void> {
