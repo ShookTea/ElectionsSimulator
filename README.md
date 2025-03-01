@@ -1,4 +1,4 @@
-# Elections Switcher
+# Elections Simulator
 
 Setup project:
 ```bash
