@@ -3,7 +3,7 @@ import { getDistrictMagnitude } from '@/utils/pl/district-magnitude';
 
 describe('District Magnitude', () => {
   describe('2023', () => {
-    const populationByDistrict2023 = {
+    const populationByDistrict = {
       '1': 884568,
       '2': 578649,
       '3': 1202108,
@@ -91,7 +91,7 @@ describe('District Magnitude', () => {
       '41': 12,
     }
 
-    const magnitudeOverridesIn2023 = {
+    const magnitudeOverrides = {
       '1': 12,
       '2': 8,
       '3': 14,
@@ -115,7 +115,7 @@ describe('District Magnitude', () => {
       '40': 8,
     };
 
-    const magnitudesUsedIn2023 = {
+    const magnitudesUsed = {
       '1': 12,
       '2': 8,
       '3': 14,
@@ -159,20 +159,189 @@ describe('District Magnitude', () => {
       '41': 12,
     }
 
-    test('returns correct magnitudes for 2023', () => {
+    test('returns correct magnitudes', () => {
       const totalSeats = 460;
-      const result = getDistrictMagnitude(populationByDistrict2023, {}, totalSeats);
+      const result = getDistrictMagnitude(populationByDistrict, {}, totalSeats);
       const sum = Object.values(result).reduce((a, b) => a + b, 0);
       expect(sum).toBe(totalSeats);
       expect(result).toEqual(correctMagnitudes);
     });
 
-    test('returns correct magnitudes for 2023 with overrides', () => {
+    test('returns correct magnitudes with overrides', () => {
       const totalSeats = 460;
-      const result = getDistrictMagnitude(populationByDistrict2023, magnitudeOverridesIn2023, totalSeats);
+      const result = getDistrictMagnitude(populationByDistrict, magnitudeOverrides, totalSeats);
       const sum = Object.values(result).reduce((a, b) => a + b, 0);
       expect(sum).toBe(totalSeats);
-      expect(result).toEqual(magnitudesUsedIn2023);
+      expect(result).toEqual(magnitudesUsed);
+    });
+  });
+
+  describe('2019', () => {
+    const populationByDistrict = {
+      '1': 927450,
+      '2': 616381,
+      '3': 1201333,
+      '4': 962756,
+      '5': 1004212,
+      '6': 1162325,
+      '7': 921533,
+      '8': 966936,
+      '9': 727012,
+      '10': 707006,
+      '11': 938713,
+      '12': 639580,
+      '13': 1142182,
+      '14': 796128,
+      '15': 734251,
+      '16': 810040,
+      '17': 693328,
+      '18': 950519,
+      '19': 1674506,
+      '20': 1088736,
+      '21': 942438,
+      '22': 867709,
+      '23': 1241140,
+      '24': 1146820,
+      '25': 1019416,
+      '26': 1191547,
+      '27': 756291,
+      '28': 571505,
+      '29': 708574,
+      '30': 694520,
+      '31': 900207,
+      '32': 646008,
+      '33': 1222607,
+      '34': 605892,
+      '35': 770011,
+      '36': 982676,
+      '37': 760509,
+      '38': 762281,
+      '39': 863380,
+      '40': 610344,
+      '41': 981272
+    }
+
+    const correctMagnitudes = {
+      '1': 12,
+      '2': 8,
+      '3': 15,
+      '4': 12,
+      '5': 13,
+      '6': 14,
+      '7': 11,
+      '8': 12,
+      '9': 9,
+      '10': 9,
+      '11': 12,
+      '12': 8,
+      '13': 14,
+      '14': 10,
+      '15': 9,
+      '16': 10,
+      '17': 9,
+      '18': 12,
+      '19': 21,
+      '20': 14,
+      '21': 12,
+      '22': 11,
+      '23': 15,
+      '24': 14,
+      '25': 13,
+      '26': 15,
+      '27': 9,
+      '28': 5,
+      '29': 9,
+      '30': 9,
+      '31': 11,
+      '32': 8,
+      '33': 15,
+      '34': 8,
+      '35': 10,
+      '36': 12,
+      '37': 9,
+      '38': 10,
+      '39': 11,
+      '40': 8,
+      '41': 12,
+    }
+
+    const magnitudeOverrides = {
+      '3': 14,
+      '6': 15,
+      '7': 12,
+      '9': 10,
+      '19': 20,
+      '20': 12,
+      '25': 12,
+      '26': 14,
+      '27': 9,
+      '28': 7,
+      '31': 12,
+      '32': 9,
+      '33': 16,
+      '38': 9,
+      '39': 10,
+    };
+
+    const magnitudesUsed = {
+      '1': 12,
+      '2': 8,
+      '3': 14,
+      '4': 12,
+      '5': 13,
+      '6': 15,
+      '7': 12,
+      '8': 12,
+      '9': 10,
+      '10': 9,
+      '11': 12,
+      '12': 8,
+      '13': 14,
+      '14': 10,
+      '15': 9,
+      '16': 10,
+      '17': 9,
+      '18': 12,
+      '19': 20,
+      '20': 12,
+      '21': 12,
+      '22': 11,
+      '23': 15,
+      '24': 14,
+      '25': 12,
+      '26': 14,
+      '27': 9,
+      '28': 7,
+      '29': 9,
+      '30': 9,
+      '31': 12,
+      '32': 9,
+      '33': 16,
+      '34': 8,
+      '35': 10,
+      '36': 12,
+      '37': 9,
+      '38': 9,
+      '39': 10,
+      '40': 8,
+      '41': 12,
+    }
+
+    test('returns correct magnitudes', () => {
+      const totalSeats = 460;
+      const result = getDistrictMagnitude(populationByDistrict, {}, totalSeats);
+      const sum = Object.values(result).reduce((a, b) => a + b, 0);
+      expect(result).toEqual(correctMagnitudes);
+      expect(sum).toBe(totalSeats);
+    });
+
+    test('returns correct magnitudes with overrides', () => {
+      const totalSeats = 460;
+      const result = getDistrictMagnitude(populationByDistrict, magnitudeOverrides, totalSeats);
+      console.log(result);
+      const sum = Object.values(result).reduce((a, b) => a + b, 0);
+      expect(result).toEqual(magnitudesUsed);
+      expect(sum).toBe(totalSeats);
     });
   });
 });
