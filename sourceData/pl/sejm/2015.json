@@ -1,0 +1,167 @@
+{
+  "file": "sourceData/pl/sejm/2015.csv",
+  "csvOptions": {
+    "bom": false,
+    "quote": "\"",
+    "delimiter": ";",
+    "recordDelimiter": "\n"
+  },
+  "electionCsvColumns": {
+    "districtNumber": "Nr okr.Sejm"
+  },
+  "populationFile": "sourceData/pl/sejm/2015.csv",
+  "populationCsvColumns": {
+    "districtNumber": "Nr okr.Sejm",
+    "population": "Liczba wyborców"
+  },
+  "overrideReason": "lack_of_data",
+  "numberOfMandatesOverride": {
+    "1": 12,
+    "2": 8,
+    "3": 14,
+    "4": 12,
+    "5": 13,
+    "6": 15,
+    "7": 12,
+    "8": 12,
+    "9": 10,
+    "10": 9,
+    "11": 12,
+    "12": 8,
+    "13": 14,
+    "14": 10,
+    "15": 9,
+    "16": 10,
+    "17": 9,
+    "18": 12,
+    "19": 20,
+    "20": 12,
+    "21": 12,
+    "22": 11,
+    "23": 15,
+    "24": 14,
+    "25": 12,
+    "26": 14,
+    "27": 9,
+    "28": 7,
+    "29": 9,
+    "30": 9,
+    "31": 12,
+    "32": 9,
+    "33": 16,
+    "34": 8,
+    "35": 10,
+    "36": 12,
+    "37": 9,
+    "38": 9,
+    "39": 10,
+    "40": 8,
+    "41": 12
+  },
+  "partyDefinitions": [
+    {
+      "name": "Prawo i Sprawiedliwość",
+      "abbreviation": "PiS",
+      "columnName": "1 - Komitet Wyborczy Prawo i Sprawiedliwość",
+      "color": "#073A76"
+    },
+    {
+      "name": "Platforma Obywatelska",
+      "abbreviation": "PO",
+      "columnName": "2 - Komitet Wyborczy Platforma Obywatelska RP",
+      "color": "#E19F39"
+    },
+    {
+      "name": "Razem",
+      "abbreviation": "R",
+      "columnName": "3 - Komitet Wyborczy Partia Razem",
+      "color": "#870F57"
+    },
+    {
+      "name": "KORWiN",
+      "abbreviation": "KORWiN",
+      "columnName": "4 - Komitet Wyborczy KORWiN",
+      "color": "#E8B909"
+    },
+    {
+      "name": "Polskie Stronnictwo Ludowe",
+      "abbreviation": "PSL",
+      "columnName": "5 - Komitet Wyborczy Polskie Stronnictwo Ludowe",
+      "color": "#1BB100"
+    },
+    {
+      "name": "Zjednoczona Lewica",
+      "abbreviation": "ZL",
+      "columnName": "6 - Koalicyjny Komitet Wyborczy Zjednoczona Lewica SLD+TR+PPS+UP+Zieloni",
+      "color": "#ED1D23",
+      "coalition": true
+    },
+    {
+      "name": "Kukiz'15",
+      "abbreviation": "K15",
+      "columnName": "7 - Komitet Wyborczy Wyborców „Kukiz'15”",
+      "color": "#000000"
+    },
+    {
+      "name": ".Nowoczesna",
+      "abbreviation": ".N",
+      "columnName": "8 - Komitet Wyborczy Nowoczesna Ryszarda Petru",
+      "color": "#005CA9"
+    },
+    {
+      "name": "JOW Bezpartyjni",
+      "abbreviation": "JOW",
+      "columnName": "9 - Komitet Wyborczy Wyborców JOW Bezpartyjni",
+      "color": "#2C4D94"
+    },
+    {
+      "name": "KWW Zbigniewa Stonogi",
+      "abbreviation": "ZS",
+      "columnName": "10 - Komitet Wyborczy Wyborców Zbigniewa Stonogi",
+      "color": "#000000"
+    },
+    {
+      "name": "Ruch Społeczny Rzeczypospolitej Polskiej",
+      "abbreviation": "RSRP",
+      "columnName": "11 - Komitet Wyborczy Wyborców  Ruch Społeczny Rzeczypospolitej Polskiej",
+      "color": "#FF0000"
+    },
+    {
+      "name": "Zjednoczeni dla Śląska",
+      "abbreviation": "ZdŚ",
+      "columnName": "12 - Komitet Wyborczy Wyborców Zjednoczeni dla Śląska",
+      "color": "#F7C600"
+    },
+    {
+      "name": "Samoobrona",
+      "abbreviation": "SRP",
+      "columnName": "13 - Komitet Wyborczy Samoobrona",
+      "color": "#FAD700"
+    },
+    {
+      "name": "KWW Grzegorza Brauna \"Szczęść Boże!\"",
+      "abbreviation": "GB",
+      "columnName": "14 - Komitet Wyborczy Wyborców Grzegorza Brauna „Szczęść Boże!”",
+      "color": "#990033"
+    },
+    {
+      "name": "Kongres Nowej Prawicy",
+      "abbreviation": "KNP",
+      "columnName": "15 - Komitet Wyborczy Kongres Nowej Prawicy",
+      "color": "#0099CC"
+    },
+    {
+      "name": "Mniejszość Niemiecka",
+      "abbreviation": "MN",
+      "columnName": "16 - Komitet Wyborczy Wyborców Mniejszość Niemiecka",
+      "color": "#0780C4",
+      "nationalMinority": true
+    },
+    {
+      "name": "Obywatele do Parlamentu",
+      "abbreviation": "OdP",
+      "columnName": "16 - Komitet Wyborczy Wyborców Obywatele do Parlamentu",
+      "color": "#D20000"
+    }
+  ]
+}

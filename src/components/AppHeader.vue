@@ -12,7 +12,7 @@ const year = computed(() => route.path.split('/')[3] ?? '');
 
 const options = ref({
   'pl': {
-    'sejm': ['2019', '2023'],
+    'sejm': ['2015', '2019', '2023'],
   }
 });
 
