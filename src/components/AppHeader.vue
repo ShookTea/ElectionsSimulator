@@ -3,6 +3,7 @@ import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import AppHeaderSelector from '@/components/AppHeaderSelector.vue';
 import LanguagePicker from '@/components/LanguagePicker.vue';
+import AppHeaderOutsideButton from '@/components/AppHeaderOutsideButton.vue';
 
 const route = useRoute();
 
@@ -12,8 +13,8 @@ const year = computed(() => route.path.split('/')[3] ?? '');
 
 const options = ref({
   'pl': {
-    'sejm': ['2015', '2019', '2023'],
-  }
+    'sejm': [ '2015', '2019', '2023' ],
+  },
 });
 
 </script>
@@ -24,13 +25,32 @@ const options = ref({
         {{ $t('app.title') }}
       </h1>
       <div class="header-selector">
-        <span>{{ $t('app.viewSelector.prefix')}}</span>
-        <AppHeaderSelector :options="options.pl.sejm" :path="`/${country}/${electionType}`" :current-option="year" />
-        <span>{{ $t('app.viewSelector.afterYear')}}</span>
+        <span>{{ $t('app.viewSelector.prefix') }}</span>
+        <AppHeaderSelector :options="options.pl.sejm" :path="`/${country}/${electionType}`" :current-option="year"/>
+        <span>{{ $t('app.viewSelector.afterYear') }}</span>
       </div>
     </div>
-    <div class="language-picker">
-      <v-icon name="md-language"/> <LanguagePicker />
+    <div class="right-side">
+      <div class="language-picker">
+        <v-icon name="md-language"/>
+        <LanguagePicker/>
+      </div>
+      <AppHeaderOutsideButton
+          label="Donate"
+          icon="bi-heart-fill"
+          background-color="lightblue"
+          text-color="black"
+          icon-color="deeppink"
+          link="https://github.com/sponsors/ShookTea"
+      />
+      <AppHeaderOutsideButton
+          label="GitHub"
+          icon="bi-github"
+          background-color="black"
+          text-color="while"
+          icon-color="white"
+          link="https://github.com/ShookTea/ElectionsSimulator"
+      />
     </div>
   </header>
 </template>
@@ -68,11 +88,20 @@ h1 {
   gap: 0.3rem;
 }
 
-.language-picker {
+.right-side {
   margin-right: 3rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
+  gap: 1em;
+}
+
+.language-picker {
+  display: flex;
+  height: 100%;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   gap: 0.5em;
 }
 </style>
