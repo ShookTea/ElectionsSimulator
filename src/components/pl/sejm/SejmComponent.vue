@@ -6,6 +6,8 @@ import DistrictMagnitudeConfiguration from '@/components/pl/sejm/DistrictMagnitu
 import ThresholdPicker from '@/components/pl/sejm/ThresholdPicker.vue';
 import PartyTable from '@/components/pl/sejm/PartyTable.vue';
 import { getPartiesAboveThreshold } from '@/utils/pl/parties-above-threshold';
+import { PartyAbbreviation } from '@/models/pl/party-definition';
+import { calculateResults } from '@/utils/pl/calculate-results';
 
 const props = defineProps<{
   data: Sejm
@@ -25,6 +27,15 @@ const partyAbbreviationsAboveThreshold = computed<string[]>(() => {
       nationalMinorityThreshold.value,
   );
 });
+
+const finalResultsByParty = computed<Record<PartyAbbreviation, number>>(() => {
+  return calculateResults(
+      seatDistribution.value,
+      props.data.districtResults,
+      partyAbbreviationsAboveThreshold.value,
+      'DHondt'
+  );
+});
 </script>
 
 <template>
@@ -36,5 +47,6 @@ const partyAbbreviationsAboveThreshold = computed<string[]>(() => {
         v-model:national-minority-threshold="nationalMinorityThreshold"
     />
     <PartyTable :parties="props.data.partyDefinitions" />
+    {{finalResultsByParty}}
   </div>
 </template>

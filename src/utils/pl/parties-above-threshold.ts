@@ -1,4 +1,4 @@
-import { PartyDefinition } from '@/models/pl/party-definition';
+import { PartyAbbreviation, PartyDefinition } from '@/models/pl/party-definition';
 import { DistrictResult } from '@/models/pl/sejm';
 
 /**
@@ -10,11 +10,11 @@ export function getPartiesAboveThreshold(
   mainThreshold: number,
   coalitionThreshold: number,
   nationalMinorityThreshold: number,
-): string[] {
-  const result: string[] = [];
+): PartyAbbreviation[] {
+  const result: PartyAbbreviation[] = [];
 
   let allVotes = 0;
-  const votesByParty: { [party: string]: number } = {};
+  const votesByParty: { [party: PartyAbbreviation]: number } = {};
   electionResults.forEach((result) => {
     allVotes += result.totalVotes;
     Object.keys(result.results).forEach((party) => {
