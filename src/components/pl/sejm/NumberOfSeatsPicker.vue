@@ -3,6 +3,7 @@ import { watch } from 'vue';
 import TwoColumnForm from '@/components/ui/TwoColumnForm.vue';
 import TwoColumnFormLabel from '@/components/ui/TwoColumnFormLabel.vue';
 import TwoColumnFormNumber from '@/components/ui/TwoColumnFormNumber.vue';
+import TwoColumnFormCheckbox from '@/components/ui/TwoColumnFormCheckbox.vue';
 
 const props = defineProps<{
   defaultNumberOfSeats: number;
@@ -24,8 +25,7 @@ watch(() => numberOfSeats.value, (newValue) => {
       <TwoColumnFormLabel>
         Seat distribution used during that election was different than what it should be based on the election law.
       </TwoColumnFormLabel>
-      <label for="useRealSeats">Use real seats:</label>
-      <input id="useRealSeats" type="checkbox" v-model="useRealSeats" :key="useRealSeats ? 'yes' : 'no'" />
+      <TwoColumnFormCheckbox label="Use real seats" v-model="useRealSeats"/>
     </template>
   </TwoColumnForm>
 </template>
