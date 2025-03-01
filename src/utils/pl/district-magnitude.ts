@@ -1,6 +1,4 @@
-type NumberMap = {
-  [key: string|number|symbol]: number;
-};
+import { NumberMap } from '@/models/utils/number-map';
 
 /**
  * Get the district magnitude (number of seats) for each district, based on the population and the total number of seats.
