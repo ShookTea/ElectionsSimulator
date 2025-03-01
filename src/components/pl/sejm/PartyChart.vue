@@ -52,7 +52,7 @@ const chartData = computed<ChartData<'doughnut'>>(() => {
   return {
     labels: chartLabels.value,
     datasets: [{
-      label: 'Votes',
+      label: 'Seats',
       data: chartValues.value,
       backgroundColor: chartColors.value,
       hoverOffset: 4

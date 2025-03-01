@@ -9,6 +9,7 @@
   display: grid;
   grid-template-columns: 50% 50%;
   row-gap: 0.5rem;
+  column-gap: 1rem;
   align-items: center;
 }
 </style>
