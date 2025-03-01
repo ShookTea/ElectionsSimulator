@@ -1,10 +1,13 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import AppHeaderSelector from '@/components/AppHeaderSelector.vue';
 
 const route = useRoute();
-const [country, electionType, year] = route.path.split('/').slice(1);
+
+const country = computed(() => route.path.split('/')[1] ?? '');
+const electionType = computed(() => route.path.split('/')[2] ?? '');
+const year = computed(() => route.path.split('/')[3] ?? '');
 
 const options = ref({
   'pl': {
@@ -19,8 +22,8 @@ const options = ref({
       Elections Simulator
     </h1>
     <div class="header-selector">
-      <span>Polish elections of Sejm in</span>
-      <AppHeaderSelector :options="options.pl.sejm" path="/pl/sejm" :current-option="year" />
+      <span>Polish elections to Sejm in</span>
+      <AppHeaderSelector :options="options.pl.sejm" :path="`/${country}/${electionType}`" :current-option="year" />
     </div>
   </header>
 </template>
