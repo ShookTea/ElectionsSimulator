@@ -1,9 +1,11 @@
 <script lang="ts" setup>
 import { Sejm } from '@/models/pl/sejm';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { NumberMap } from '@/models/utils/number-map';
 import DistrictMagnitudeConfiguration from '@/components/pl/sejm/DistrictMagnitudeConfiguration.vue';
 import ThresholdPicker from '@/components/pl/sejm/ThresholdPicker.vue';
+import PartyTable from '@/components/pl/sejm/PartyTable.vue';
+import { getPartiesAboveThreshold } from '@/utils/pl/parties-above-threshold';
 
 const props = defineProps<{
   data: Sejm
@@ -13,6 +15,16 @@ const seatDistribution = ref<NumberMap>({});
 const mainThreshold = ref<number>(5);
 const coalitionThreshold = ref<number>(8);
 const nationalMinorityThreshold = ref<number>(0);
+
+const partyAbbreviationsAboveThreshold = computed<string[]>(() => {
+  return getPartiesAboveThreshold(
+      props.data.partyDefinitions,
+      props.data.districtResults,
+      mainThreshold.value,
+      coalitionThreshold.value,
+      nationalMinorityThreshold.value,
+  );
+});
 </script>
 
 <template>
@@ -23,6 +35,6 @@ const nationalMinorityThreshold = ref<number>(0);
         v-model:coalition-threshold="coalitionThreshold"
         v-model:national-minority-threshold="nationalMinorityThreshold"
     />
-    {{ seatDistribution }}
+    <PartyTable :parties="props.data.partyDefinitions" />
   </div>
 </template>
