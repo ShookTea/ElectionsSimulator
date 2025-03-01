@@ -4,7 +4,7 @@
 <template>
   <header>
     <h1>
-      Elections Switcher
+      Elections Simulator
     </h1>
   </header>
 </template>
