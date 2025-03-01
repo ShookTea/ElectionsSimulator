@@ -18,6 +18,9 @@ export default {
       mainThreshold: 'Próg wyborczy',
       coalitionThreshold: 'Próg wyborczy dla koalicji',
       nationalMinorityThreshold: 'Próg wyborczy dla mniejszości narodowych i etnicznych',
+      partyName: 'Komitet wyborczy',
+      partyAbbreviation: 'Skrót',
+      partySeats: 'Mandaty',
     },
   },
 };

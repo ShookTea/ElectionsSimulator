@@ -18,6 +18,9 @@ export default {
       mainThreshold: 'Electoral threshold',
       coalitionThreshold: 'Threshold for alliances',
       nationalMinorityThreshold: 'Threshold for national and ethnic minorities',
+      partyName: 'Party',
+      partyAbbreviation: 'Abbr',
+      partySeats: 'Seats',
     },
   },
 };

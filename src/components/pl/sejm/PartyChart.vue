@@ -3,7 +3,9 @@ import { PartyAbbreviation, PartyDefinition } from '@/models/pl/party-definition
 import { Doughnut } from 'vue-chartjs';
 import { Chart as ChartJS, Title, Tooltip, Legend, CategoryScale, ArcElement, ChartData } from 'chart.js';
 import { computed, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
+const i18n = useI18n();
 ChartJS.register(Title, Tooltip, Legend, CategoryScale, ArcElement);
 
 const props = defineProps<{
@@ -48,11 +50,12 @@ const chartValues = computed<number[]>(() => {
   return values;
 });
 
+
 const chartData = computed<ChartData<'doughnut'>>(() => {
   return {
     labels: chartLabels.value,
     datasets: [{
-      label: 'Seats',
+      label: i18n.t('pl.sejm.partySeats'),
       data: chartValues.value,
       backgroundColor: chartColors.value,
       hoverOffset: 4

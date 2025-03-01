@@ -18,9 +18,9 @@ const partiesWithVotes = computed<PartyAbbreviation[]>(() => {
     <thead>
       <tr>
         <th></th>
-        <th>Party</th>
-        <th>Abbr</th>
-        <th>Seats</th>
+        <th>{{ $t('pl.sejm.partyName') }}</th>
+        <th>{{ $t('pl.sejm.partyAbbreviation') }}</th>
+        <th>{{ $t('pl.sejm.partySeats') }}</th>
       </tr>
     </thead>
     <tbody>
