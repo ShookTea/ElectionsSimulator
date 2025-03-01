@@ -10,4 +10,4 @@ createApp(App)
   .use(i18n)
   .mount('#app');
 
-document.title = 'Elections Switcher';
+document.title = 'Elections Simulator';
