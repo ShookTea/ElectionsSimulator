@@ -13,13 +13,15 @@
 header {
   background-color: #333;
   color: white;
-  padding: 1rem;
-  text-align: center;
+  padding: 1rem 0;
   width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
 }
 
 h1 {
-  margin: 0;
+  margin: 0 0 0 3rem;
   font-size: 1.5rem;
 }
 </style>

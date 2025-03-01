@@ -17,7 +17,7 @@ const loadData = (year: string) => {
   import(`../../data/pl/sejm/${year}.ts`).then((module) => {
     data.value = module.default;
   }).catch(() => {
-    router.push('/');
+    router.push('/pl/sejm/2023');
   });
 };
 
