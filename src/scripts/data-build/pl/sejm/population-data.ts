@@ -20,7 +20,7 @@ export async function buildPopulationData(manifest: Manifest): Promise<Record<nu
       const population = parseInt(record[populationColumn]);
       const districtType = record[districtTypeColumn];
 
-      if (manifest.populationIgnoreDistrictTypes.includes(districtType)) {
+      if (manifest.populationIgnoreDistrictTypes?.includes(districtType) ?? false) {
         continue;
       }
 

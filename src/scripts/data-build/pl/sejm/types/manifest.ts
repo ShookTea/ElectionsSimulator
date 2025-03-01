@@ -20,9 +20,9 @@ export type Manifest = {
   populationCsvColumns: {
     districtNumber: string;
     population: string;
-    districtType: string;
+    districtType?: string;
   };
-  populationIgnoreDistrictTypes: string[];
+  populationIgnoreDistrictTypes?: string[];
 
   // The real number of mandates used in the district, in case it differs from the calculated number.
   numberOfMandatesOverride?: Record<string, number>;
