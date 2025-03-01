@@ -1,11 +1,16 @@
 <script lang="ts" setup>
 import { PartyAbbreviation, PartyDefinition } from '@/models/pl/party-definition';
+import { computed } from 'vue';
 
-defineProps<{
+const props = defineProps<{
   parties: PartyDefinition[];
   allowedParties: PartyAbbreviation[];
   mandatesByParty: Record<PartyAbbreviation, number>;
 }>();
+
+const partiesWithVotes = computed<PartyAbbreviation[]>(() => {
+  return props.allowedParties.filter(party => props.mandatesByParty[party] > 0);
+})
 </script>
 
 <template>
@@ -19,7 +24,7 @@ defineProps<{
       </tr>
     </thead>
     <tbody>
-      <tr v-for="party in allowedParties" :key="party">
+      <tr v-for="party in partiesWithVotes" :key="party">
         <td class="party-color" :style="{
           'background-color': parties.find(p => p.abbreviation === party)?.color
         }"></td>
