@@ -15,6 +15,9 @@ export default {
       numberOfSeats: 'Liczba miejsc w Sejmie',
       useRealSeats: 'Użyj faktycznego podziału miejsc',
       realSeatsExplanation: 'Wyjaśnienie: Podział miejsc w Sejmie między okręgami wyborczymi użyty w tych wyborach był inny niż wynikałoby to z prawa wyborczego.',
+      mainThreshold: 'Próg wyborczy',
+      coalitionThreshold: 'Próg wyborczy dla koalicji',
+      nationalMinorityThreshold: 'Próg wyborczy dla mniejszości narodowych i etnicznych',
     },
   },
 };

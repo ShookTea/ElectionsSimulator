@@ -9,8 +9,26 @@ const nationalMinorityThreshold = defineModel<number>('nationalMinorityThreshold
 
 <template>
   <TwoColumnForm>
-    <TwoColumnFormNumber label="Main threshold" v-model="mainThreshold" :min="0" :max="100" postfix="%" />
-    <TwoColumnFormNumber label="Coalition threshold" v-model="coalitionThreshold" :min="0" :max="100" postfix="%" />
-    <TwoColumnFormNumber label="National minority threshold" v-model="nationalMinorityThreshold" :min="0" :max="100" postfix="%" />
+    <TwoColumnFormNumber
+        :label="$t('pl.sejm.mainThreshold')"
+        v-model="mainThreshold"
+        :min="0"
+        :max="100"
+        postfix="%"
+    />
+    <TwoColumnFormNumber
+        :label="$t('pl.sejm.coalitionThreshold')"
+        v-model="coalitionThreshold"
+        :min="0"
+        :max="100"
+        postfix="%"
+    />
+    <TwoColumnFormNumber
+        :label="$t('pl.sejm.nationalMinorityThreshold')"
+        v-model="nationalMinorityThreshold"
+        :min="0"
+        :max="100"
+        postfix="%"
+    />
   </TwoColumnForm>
 </template>
