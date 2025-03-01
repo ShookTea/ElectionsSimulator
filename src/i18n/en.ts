@@ -5,5 +5,9 @@ export default {
       en: 'English',
       pl: 'Polski / Polish',
     },
+    viewSelector: {
+      prefix: 'Polish elections to the Sejm in',
+      afterYear: '',
+    },
   },
 };

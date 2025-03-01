@@ -5,5 +5,9 @@ export default {
       en: 'English / Angielski',
       pl: 'Polski',
     },
+    viewSelector: {
+      prefix: 'Polskie wybory do Sejmu w',
+      afterYear: 'roku',
+    },
   },
 };

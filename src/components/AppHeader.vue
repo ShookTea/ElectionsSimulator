@@ -24,8 +24,9 @@ const options = ref({
         {{ $t('app.title') }}
       </h1>
       <div class="header-selector">
-        <span>Polish elections to Sejm in</span>
+        <span>{{ $t('app.viewSelector.prefix')}}</span>
         <AppHeaderSelector :options="options.pl.sejm" :path="`/${country}/${electionType}`" :current-option="year" />
+        <span>{{ $t('app.viewSelector.afterYear')}}</span>
       </div>
     </div>
     <div class="language-picker">
