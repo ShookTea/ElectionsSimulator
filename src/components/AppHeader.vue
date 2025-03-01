@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import AppHeaderSelector from '@/components/AppHeaderSelector.vue';
+import LanguagePicker from '@/components/LanguagePicker.vue';
 
 const route = useRoute();
 
@@ -18,12 +19,17 @@ const options = ref({
 </script>
 <template>
   <header>
-    <h1>
-      Elections Simulator
-    </h1>
-    <div class="header-selector">
-      <span>Polish elections to Sejm in</span>
-      <AppHeaderSelector :options="options.pl.sejm" :path="`/${country}/${electionType}`" :current-option="year" />
+    <div class="header-main">
+      <h1>
+        {{ $t('app.title') }}
+      </h1>
+      <div class="header-selector">
+        <span>Polish elections to Sejm in</span>
+        <AppHeaderSelector :options="options.pl.sejm" :path="`/${country}/${electionType}`" :current-option="year" />
+      </div>
+    </div>
+    <div class="language-picker">
+      Language: <LanguagePicker />
     </div>
   </header>
 </template>
@@ -36,7 +42,14 @@ header {
   width: 100%;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+}
+
+.header-main {
+  display: flex;
+  flex-direction: row;
   justify-content: left;
+  gap: 2em;
 }
 
 h1 {
@@ -50,6 +63,11 @@ h1 {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 0.1rem;
+  height: 100%;
+  gap: 0.3rem;
+}
+
+.language-picker {
+  margin-right: 3rem;
 }
 </style>
