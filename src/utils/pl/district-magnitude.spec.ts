@@ -338,7 +338,6 @@ describe('District Magnitude', () => {
     test('returns correct magnitudes with overrides', () => {
       const totalSeats = 460;
       const result = getDistrictMagnitude(populationByDistrict, magnitudeOverrides, totalSeats);
-      console.log(result);
       const sum = Object.values(result).reduce((a, b) => a + b, 0);
       expect(result).toEqual(magnitudesUsed);
       expect(sum).toBe(totalSeats);
