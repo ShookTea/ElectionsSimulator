@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { PartyAbbreviation, PartyDefinition } from '@/models/pl/party-definition';
 import { Doughnut } from 'vue-chartjs';
-import { Chart as ChartJS, Title, Tooltip, Legend, CategoryScale, ArcElement, ChartOptions, ChartData } from 'chart.js';
+import { Chart as ChartJS, Title, Tooltip, Legend, CategoryScale, ArcElement, ChartData } from 'chart.js';
 import { computed, ref } from 'vue';
 
 ChartJS.register(Title, Tooltip, Legend, CategoryScale, ArcElement);
@@ -12,7 +12,7 @@ const props = defineProps<{
   mandatesByParty: Record<PartyAbbreviation, number>;
 }>();
 
-const options = ref<ChartOptions<'doughnut'>>({
+const options = ref({
   responsive: true,
   circumference: 180,
   rotation: 270,
