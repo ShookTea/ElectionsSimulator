@@ -20,12 +20,12 @@ watch(() => numberOfSeats.value, (newValue) => {
 
 <template>
   <TwoColumnForm>
-    <TwoColumnFormNumber label="Number of seats" v-model="numberOfSeats" :min="1" />
+    <TwoColumnFormNumber :label="$t('pl.sejm.numberOfSeats')" v-model="numberOfSeats" :min="1" />
     <template v-if="showRealSeatsToggle && defaultNumberOfSeats === numberOfSeats">
+      <TwoColumnFormCheckbox :label="$t('pl.sejm.useRealSeats')" v-model="useRealSeats"/>
       <TwoColumnFormLabel>
-        Seat distribution used during that election was different than what it should be based on the election law.
+        {{ $t('pl.sejm.realSeatsExplanation') }}
       </TwoColumnFormLabel>
-      <TwoColumnFormCheckbox label="Use real seats" v-model="useRealSeats"/>
     </template>
   </TwoColumnForm>
 </template>

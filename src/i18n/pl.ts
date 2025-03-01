@@ -10,4 +10,11 @@ export default {
       afterYear: 'roku',
     },
   },
+  pl: {
+    sejm: {
+      numberOfSeats: 'Liczba miejsc w Sejmie',
+      useRealSeats: 'Użyj faktycznego podziału miejsc',
+      realSeatsExplanation: 'Wyjaśnienie: Podział miejsc w Sejmie między okręgami wyborczymi użyty w tych wyborach był inny niż wynikałoby to z prawa wyborczego.',
+    },
+  },
 };
