@@ -13,11 +13,15 @@ type NumberMap = {
  * 4. Round RN to the nearest integer (if it's exactly in the middle, round up).
  * 5. If the sum of all RNs is less than the total number of seats, add 1 to the district with the highest RN.
  * 6. If the sum of all RNs is greater than the total number of seats, subtract 1 from the district with the lowest RN.
+ *
+ * If there are any districts with overridden number of seats, they will be taken into account instead of the calculated number of seats.
  * @param population Population of each district.
+ * @param overrides Number of seats in each district that should be overridden.
  * @param totalSeats Total number of seats in the parliament.
  */
 export function getDistrictMagnitude(
   population: NumberMap,
+  overrides: NumberMap,
   totalSeats: number,
 ): NumberMap {
   const totalPopulation = Object.values(population).reduce((a, b) => a + b, 0);
@@ -40,6 +44,10 @@ export function getDistrictMagnitude(
     const maxKey = Object.keys(representationNorms).reduce((a, b) => representationNorms[a] > representationNorms[b] ? a : b);
     result[maxKey]++;
     totalRepresentationNorms++;
+  }
+
+  for (const key in overrides) {
+    result[key] = overrides[key];
   }
 
   return result;

@@ -2,56 +2,52 @@ import { describe, expect, test } from 'vitest';
 import { getDistrictMagnitude } from '@/utils/pl/district-magnitude';
 
 describe('District Magnitude', () => {
-  const populationByDistrict2023 = {
-    '1': 884568,
-    '2': 578649,
-    '3': 1202108,
-    '4': 924917,
-    '5': 967871,
-    '6': 1128896,
-    '7': 877849,
-    '8': 930419,
-    '9': 686258,
-    '10': 681155,
-    '11': 905805,
-    '12': 624941,
-    '13': 1139919,
-    '14': 786802,
-    '15': 724866,
-    '16': 782080,
-    '17': 670809,
-    '18': 930131,
-    '19': 1639667,
-    '20': 1127706,
-    '21': 901617,
-    '22': 838008,
-    '23': 1220907,
-    '24': 1108053,
-    '25': 1000568,
-    '26': 1175123,
-    '27': 737912,
-    '28': 547045,
-    '29': 672575,
-    '30': 670420,
-    '31': 854693,
-    '32': 610295,
-    '33': 1166405,
-    '34': 576370,
-    '35': 741708,
-    '36': 958820,
-    '37': 742934,
-    '38': 745025,
-    '39': 866222,
-    '40': 583587,
-    '41': 945227,
-  }
+  describe('2023', () => {
+    const populationByDistrict2023 = {
+      '1': 884568,
+      '2': 578649,
+      '3': 1202108,
+      '4': 924917,
+      '5': 967871,
+      '6': 1128896,
+      '7': 877849,
+      '8': 930419,
+      '9': 686258,
+      '10': 681155,
+      '11': 905805,
+      '12': 624941,
+      '13': 1139919,
+      '14': 786802,
+      '15': 724866,
+      '16': 782080,
+      '17': 670809,
+      '18': 930131,
+      '19': 1639667,
+      '20': 1127706,
+      '21': 901617,
+      '22': 838008,
+      '23': 1220907,
+      '24': 1108053,
+      '25': 1000568,
+      '26': 1175123,
+      '27': 737912,
+      '28': 547045,
+      '29': 672575,
+      '30': 670420,
+      '31': 854693,
+      '32': 610295,
+      '33': 1166405,
+      '34': 576370,
+      '35': 741708,
+      '36': 958820,
+      '37': 742934,
+      '38': 745025,
+      '39': 866222,
+      '40': 583587,
+      '41': 945227,
+    }
 
-  test('returns correct magnitudes for 2023', () => {
-    const totalSeats = 460;
-    const result = getDistrictMagnitude(populationByDistrict2023, totalSeats);
-    const sum = Object.values(result).reduce((a, b) => a + b, 0);
-    expect(sum).toBe(totalSeats);
-    expect(result).toEqual({
+    const correctMagnitudes = {
       '1': 11,
       '2': 7,
       '3': 15,
@@ -93,6 +89,90 @@ describe('District Magnitude', () => {
       '39': 11,
       '40': 7,
       '41': 12,
+    }
+
+    const magnitudeOverridesIn2023 = {
+      '1': 12,
+      '2': 8,
+      '3': 14,
+      '5': 13,
+      '6': 15,
+      '7': 12,
+      '9': 10,
+      '13': 14,
+      '19': 20,
+      '20': 12,
+      '23': 15,
+      '25': 12,
+      '26': 14,
+      '31': 12,
+      '32': 9,
+      '33': 16,
+      '34': 8,
+      '37': 9,
+      '38': 9,
+      '39': 10,
+      '40': 8,
+    };
+
+    const magnitudesUsedIn2023 = {
+      '1': 12,
+      '2': 8,
+      '3': 14,
+      '4': 12,
+      '5': 13,
+      '6': 15,
+      '7': 12,
+      '8': 12,
+      '9': 10,
+      '10': 9,
+      '11': 12,
+      '12': 8,
+      '13': 14,
+      '14': 10,
+      '15': 9,
+      '16': 10,
+      '17': 9,
+      '18': 12,
+      '19': 20,
+      '20': 12,
+      '21': 12,
+      '22': 11,
+      '23': 15,
+      '24': 14,
+      '25': 12,
+      '26': 14,
+      '27': 9,
+      '28': 7,
+      '29': 9,
+      '30': 9,
+      '31': 12,
+      '32': 9,
+      '33': 16,
+      '34': 8,
+      '35': 10,
+      '36': 12,
+      '37': 9,
+      '38': 9,
+      '39': 10,
+      '40': 8,
+      '41': 12,
+    }
+
+    test('returns correct magnitudes for 2023', () => {
+      const totalSeats = 460;
+      const result = getDistrictMagnitude(populationByDistrict2023, {}, totalSeats);
+      const sum = Object.values(result).reduce((a, b) => a + b, 0);
+      expect(sum).toBe(totalSeats);
+      expect(result).toEqual(correctMagnitudes);
+    });
+
+    test('returns correct magnitudes for 2023 with overrides', () => {
+      const totalSeats = 460;
+      const result = getDistrictMagnitude(populationByDistrict2023, magnitudeOverridesIn2023, totalSeats);
+      const sum = Object.values(result).reduce((a, b) => a + b, 0);
+      expect(sum).toBe(totalSeats);
+      expect(result).toEqual(magnitudesUsedIn2023);
     });
   });
 });
