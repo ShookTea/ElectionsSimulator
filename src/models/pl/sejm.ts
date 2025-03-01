@@ -1,7 +1,9 @@
 import { PartyAbbreviation, PartyDefinition } from '@/models/pl/party-definition';
 
 export type MandateOverrideReason =
+  // The number of mandates used during the election does not match what should be used based on the population.
   | 'wrong_data'
+  // The app does not have valid population data for the given year, uses the number of people eligible to vote instead.
   | 'lack_of_data';
 
 export type DistrictResult = {
