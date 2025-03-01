@@ -40,7 +40,7 @@ const finalResultsByParty = computed<Record<PartyAbbreviation, number>>(() => {
 </script>
 
 <template>
-  <div>
+  <div class="sejm-component">
     <DistrictMagnitudeConfiguration :data="props.data" v-model="seatDistribution"/>
     <ThresholdPicker
         v-model:main-threshold="mainThreshold"
@@ -59,3 +59,13 @@ const finalResultsByParty = computed<Record<PartyAbbreviation, number>>(() => {
     />
   </div>
 </template>
+
+<style scoped>
+.sejm-component {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+</style>
