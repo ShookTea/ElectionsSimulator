@@ -8,7 +8,7 @@ const [country, electionType, year] = route.path.split('/').slice(1);
 
 const options = ref({
   'pl': {
-    'sejm': ['2023'],
+    'sejm': ['2019', '2023'],
   }
 });
 
