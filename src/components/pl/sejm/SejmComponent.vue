@@ -8,6 +8,7 @@ import PartyTable from '@/components/pl/sejm/PartyTable.vue';
 import { getPartiesAboveThreshold } from '@/utils/pl/parties-above-threshold';
 import { PartyAbbreviation } from '@/models/pl/party-definition';
 import { calculateResults } from '@/utils/pl/calculate-results';
+import PartyChart from '@/components/pl/sejm/PartyChart.vue';
 
 const props = defineProps<{
   data: Sejm
@@ -47,6 +48,11 @@ const finalResultsByParty = computed<Record<PartyAbbreviation, number>>(() => {
         v-model:national-minority-threshold="nationalMinorityThreshold"
     />
     <PartyTable
+        :parties="props.data.partyDefinitions"
+        :allowed-parties="partyAbbreviationsAboveThreshold"
+        :mandates-by-party="finalResultsByParty"
+    />
+    <PartyChart
         :parties="props.data.partyDefinitions"
         :allowed-parties="partyAbbreviationsAboveThreshold"
         :mandates-by-party="finalResultsByParty"
