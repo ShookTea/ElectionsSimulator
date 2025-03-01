@@ -47,20 +47,20 @@
       "name": "Bezpartyjni Samorządowcy",
       "abbreviation": "BS",
       "columnName": "KOMITET WYBORCZY BEZPARTYJNI SAMORZĄDOWCY",
-      "color": "#000000"
+      "color": "#DA251D"
     },
     {
       "name": "Trzecia Droga",
       "abbreviation": "TD",
       "columnName": "KOALICYJNY KOMITET WYBORCZY TRZECIA DROGA POLSKA 2050 SZYMONA HOŁOWNI - POLSKIE STRONNICTWO LUDOWE",
-      "color": "#1BB100",
+      "color": "#96D544",
       "coalition": true
     },
     {
       "name": "Nowa Lewica",
       "abbreviation": "NL",
       "columnName": "KOMITET WYBORCZY NOWA LEWICA",
-      "color": "#ED2846"
+      "color": "#AC145A"
     },
     {
       "name": "Prawo i Sprawiedliwość",
@@ -72,7 +72,7 @@
       "name": "Konfederacja",
       "abbreviation": "KONF",
       "columnName": "KOMITET WYBORCZY KONFEDERACJA WOLNOŚĆ I NIEPODLEGŁOŚĆ",
-      "color": "#10069F"
+      "color": "#102440"
     },
     {
       "name": "Koalicja Obywatelska",
@@ -84,33 +84,38 @@
     {
       "name": "Polska Jest Jedna",
       "abbreviation": "PJJ",
-      "columnName": "KOMITET WYBORCZY POLSKA JEST JEDNA"
+      "columnName": "KOMITET WYBORCZY POLSKA JEST JEDNA",
+      "color": "#00B7EB"
     },
     {
       "name": "Ruch Dobrobytu i Pokoju",
       "abbreviation": "RDiP",
-      "columnName": "KOMITET WYBORCZY WYBORCÓW RUCHU DOBROBYTU I POKOJU"
+      "columnName": "KOMITET WYBORCZY WYBORCÓW RUCHU DOBROBYTU I POKOJU",
+      "color": "#F30117"
     },
     {
       "name": "Normalny Kraj",
       "abbreviation": "NK",
-      "columnName": "KOMITET WYBORCZY NORMALNY KRAJ"
+      "columnName": "KOMITET WYBORCZY NORMALNY KRAJ",
+      "color": "#019288"
     },
     {
       "name": "Antypartia",
       "abbreviation": "AP",
-      "columnName": "KOMITET WYBORCZY ANTYPARTIA"
+      "columnName": "KOMITET WYBORCZY ANTYPARTIA",
+      "color": "#FFFFFF"
     },
     {
       "name": "Ruch Naprawy Polski",
       "abbreviation": "RNP",
-      "columnName": "KOMITET WYBORCZY RUCH NAPRAWY POLSKI"
+      "columnName": "KOMITET WYBORCZY RUCH NAPRAWY POLSKI",
+      "color": "#003153"
     },
     {
       "name": "Mniejszość Niemiecka",
       "abbreviation": "MN",
       "columnName": "KOMITET WYBORCZY WYBORCÓW MNIEJSZOŚĆ NIEMIECKA",
-      "color": "#666666",
+      "color": "#0780C4",
       "nationalMinority": true
     }
   ]
