@@ -2,6 +2,7 @@
 import { watch } from 'vue';
 import TwoColumnForm from '@/components/ui/TwoColumnForm.vue';
 import TwoColumnFormLabel from '@/components/ui/TwoColumnFormLabel.vue';
+import TwoColumnFormNumber from '@/components/ui/TwoColumnFormNumber.vue';
 
 const props = defineProps<{
   defaultNumberOfSeats: number;
@@ -18,8 +19,7 @@ watch(() => numberOfSeats.value, (newValue) => {
 
 <template>
   <TwoColumnForm>
-    <label for="numberOfSeats">Number of seats:</label>
-    <input id="numberOfSeats" type="number" v-model="numberOfSeats" :min="1" :max="99999" />
+    <TwoColumnFormNumber label="Number of seats" v-model="numberOfSeats" :min="1" />
     <template v-if="showRealSeatsToggle && defaultNumberOfSeats === numberOfSeats">
       <TwoColumnFormLabel>
         Seat distribution used during that election was different than what it should be based on the election law.
