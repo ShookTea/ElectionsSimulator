@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { watch } from 'vue';
+import TwoColumnForm from '@/components/ui/TwoColumnForm.vue';
+import TwoColumnFormLabel from '@/components/ui/TwoColumnFormLabel.vue';
 
 const props = defineProps<{
   defaultNumberOfSeats: number;
@@ -15,31 +17,16 @@ watch(() => numberOfSeats.value, (newValue) => {
 </script>
 
 <template>
-  <div class="number-of-seats-picker">
+  <TwoColumnForm>
     <label for="numberOfSeats">Number of seats:</label>
     <input id="numberOfSeats" type="number" v-model="numberOfSeats" :min="1" :max="99999" />
     <template v-if="showRealSeatsToggle && defaultNumberOfSeats === numberOfSeats">
       <label for="useRealSeats">Use real seats:</label>
       <input id="useRealSeats" type="checkbox" v-model="useRealSeats" :key="useRealSeats ? 'yes' : 'no'" />
-      <span class="explanation">
+      <TwoColumnFormLabel>
         Seat distribution used during that election was different than what it should be based on the election law.
-      </span>
+      </TwoColumnFormLabel>
     </template>
-  </div>
+  </TwoColumnForm>
 </template>
 
-<style scoped>
-.number-of-seats-picker {
-  display: grid;
-  grid-template-columns: auto auto;
-  row-gap: 0.5rem;
-  align-items: center;
-}
-
-.explanation {
-  font-size: 0.8rem;
-  color: #666;
-  grid-column: span 2;
-  display: block;
-}
-</style>
