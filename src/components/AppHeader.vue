@@ -1,4 +1,16 @@
 <script lang="ts" setup>
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
+import AppHeaderSelector from '@/components/AppHeaderSelector.vue';
+
+const route = useRoute();
+const [country, electionType, year] = route.path.split('/').slice(1);
+
+const options = ref({
+  'pl': {
+    'sejm': ['2023'],
+  }
+});
 
 </script>
 <template>
@@ -7,7 +19,8 @@
       Elections Simulator
     </h1>
     <div class="header-selector">
-      <span>Polish elections of Sejm in 2023</span>
+      <span>Polish elections of Sejm in</span>
+      <AppHeaderSelector :options="options.pl.sejm" path="/pl/sejm" :current-option="year" />
     </div>
   </header>
 </template>
