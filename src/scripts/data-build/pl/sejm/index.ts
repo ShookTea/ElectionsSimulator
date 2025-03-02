@@ -33,6 +33,10 @@ async function buildForYear(year: number, manifestPath: string): Promise<void> {
       'district',
       true,
     ),
+    gminaResults: await buildResultsForGroup(
+      manifest,
+      'gmina',
+    ),
   };
   const resultAsString = JSON.stringify(finalResult, null, 2);
   const fileContent = [
@@ -49,21 +53,21 @@ async function buildForYear(year: number, manifestPath: string): Promise<void> {
 
 async function buildResultsForGroup(
   manifest: Manifest,
-  key: 'district',
+  key: 'district' | 'gmina',
   useOverride: boolean = false,
 ): Promise<DistrictResult[]> {
   const votingResults = await getResults(manifest, key);
   const populationData = await buildPopulationData(manifest, key);
 
-  return Object.entries(votingResults).map(([ districtNumber, result ]) => {
+  return Object.entries(votingResults).map(([ districtKey, result ]) => {
       const districtResult: DistrictResult = {
-        districtKey: districtNumber,
+        districtKey,
         totalVotes: result.totalVotes,
-        population: populationData[parseInt(districtNumber)],
+        population: populationData[districtKey],
         results: convertDistrictToFinalResult(result, manifest),
       };
-      if (useOverride && manifest.numberOfMandatesOverride && manifest.numberOfMandatesOverride[districtNumber]) {
-        districtResult.numberOfMandatesUsed = manifest.numberOfMandatesOverride[districtNumber];
+      if (useOverride && manifest.numberOfMandatesOverride && manifest.numberOfMandatesOverride[districtKey]) {
+        districtResult.numberOfMandatesUsed = manifest.numberOfMandatesOverride[districtKey];
       }
       return districtResult;
     },

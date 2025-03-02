@@ -19,5 +19,6 @@ export type Sejm = {
   year: number;
   partyDefinitions: PartyDefinition[];
   districtResults: DistrictResult[];
+  gminaResults: DistrictResult[];
   mandateOverrideReason: MandateOverrideReason;
 }

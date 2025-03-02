@@ -3,7 +3,10 @@ import { Result } from '@/scripts/data-build/pl/sejm/types/result';
 import { createCsvParser } from '@/scripts/data-build/csv-reader';
 import { HeaderConfig } from '@/scripts/data-build/pl/sejm/types/header-config';
 
-export async function getResults(manifest: Manifest, key: 'district'): Promise<Record<string, Result>> {
+export async function getResults(
+  manifest: Manifest,
+  key: 'district' | 'gmina',
+): Promise<Record<string, Result>> {
   const parser = createCsvParser(manifest.file, manifest.csvOptions);
   let headerConfig: HeaderConfig|null = null;
 
@@ -11,9 +14,12 @@ export async function getResults(manifest: Manifest, key: 'district'): Promise<R
 
   for await (const record of parser) {
     if (!headerConfig) {
-      headerConfig = buildHeaderConfig(record, manifest);
+      headerConfig = buildHeaderConfig(record, manifest, key);
     } else {
-      const rowEntry = buildRowResult(record, headerConfig);
+      const rowEntry = buildRowResult(record, manifest, headerConfig);
+      if (rowEntry === null) {
+        continue;
+      }
       if (resultsByDistrict[rowEntry.districtKey]) {
         resultsByDistrict[rowEntry.districtKey] = sumResults(resultsByDistrict[rowEntry.districtKey], rowEntry);
       } else {
@@ -38,9 +44,13 @@ function sumResults(result1: Result, result2: Result): Result {
   };
 }
 
-function buildRowResult(row: string[], headerConfig: HeaderConfig): Result {
+function buildRowResult(row: string[], manifest: Manifest, headerConfig: HeaderConfig): Result|null {
   const districtKey = row[headerConfig.districtKey];
   let totalVotes = 0;
+
+  if (districtKey === '' || manifest.populationIgnoreDistrictTypes?.includes(districtKey)) {
+    return null;
+  }
 
   const partyResults: Record<string, number> = {};
   Object.entries(headerConfig.partyColumns).forEach(([columnName, index]) => {
@@ -60,7 +70,7 @@ function buildRowResult(row: string[], headerConfig: HeaderConfig): Result {
   };
 }
 
-function buildHeaderConfig(headerRow: string[], manifest: Manifest): HeaderConfig {
+function buildHeaderConfig(headerRow: string[], manifest: Manifest, key: 'district' | 'gmina'): HeaderConfig {
   const partyColumns: Record<string, number> = {};
   manifest.partyDefinitions.forEach((partyDefinition) => {
     const index = headerRow.indexOf(partyDefinition.columnName);
@@ -70,8 +80,10 @@ function buildHeaderConfig(headerRow: string[], manifest: Manifest): HeaderConfi
     partyColumns[partyDefinition.columnName] = index;
   });
 
+  const districtKey = key === 'district' ? manifest.electionCsvColumns.districtKey : manifest.electionCsvColumns.gminaKey;
+
   return {
-    districtKey: headerRow.indexOf(manifest.electionCsvColumns.districtKey),
+    districtKey: headerRow.indexOf(districtKey),
     partyColumns,
   };
 }

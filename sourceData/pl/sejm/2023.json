@@ -13,7 +13,7 @@
   "populationFile": "sourceData/pl/sejm/2023_population.csv",
   "populationCsvColumns": {
     "districtKey": "Okręg Sejm",
-    "gminaKey": "TERYT Gminy",
+    "gminaKey": "TERYT gminy",
     "population": "Mieszkańcy",
     "districtType": "Typ obszaru"
   },

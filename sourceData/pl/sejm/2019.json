@@ -19,6 +19,7 @@
   },
   "populationIgnoreDistrictTypes": [
     "statek",
+    "statki",
     "zagranica"
   ],
   "numberOfMandatesOverride": {
