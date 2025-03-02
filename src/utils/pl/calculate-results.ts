@@ -2,8 +2,9 @@ import { NumberMap } from '@/models/utils/number-map';
 import { PartyAbbreviation } from '@/models/pl/party-definition';
 import { DistrictResult } from '@/models/pl/sejm';
 
-export type HighestAveragesMethod = 'dHondt' | 'SainteLague' | 'HuntingtonHill';
-export type ResultMethod = HighestAveragesMethod;
+export type ProportionalMethod = 'dHondt' | 'SainteLague' | 'HuntingtonHill';
+export type FirstPastThePostMethod = 'fptp';
+export type ResultMethod = ProportionalMethod | FirstPastThePostMethod;
 
 export function calculateResults(
   seatDistribution: NumberMap,
@@ -54,6 +55,11 @@ function getResultForDistrict(
       (seats) => Math.sqrt(seats * (seats + 1)),
     );
   }
+  if (method === 'fptp') {
+    return buildResultsWithFirstPastThePostMethod(
+      resultsForAllowedParties,
+    );
+  }
 }
 
 function buildResultsWithHighestAveragesMethod(
@@ -75,4 +81,14 @@ function buildResultsWithHighestAveragesMethod(
   }
 
   return result;
+}
+
+function buildResultsWithFirstPastThePostMethod(
+  votesByParty: Record<PartyAbbreviation, number>,
+): Record<PartyAbbreviation, number> {
+  // Party with highest number of votes
+  const winner = Object.entries(votesByParty)
+    .sort((a, b) => b[1] - a[1])
+    .shift()[0];
+  return { [winner]: 1 };
 }

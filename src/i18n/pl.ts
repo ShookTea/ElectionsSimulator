@@ -15,6 +15,7 @@ export default {
       electoralSystem: 'System wyborczy',
       electoralSystemValues: {
         proportional: 'Proporcjonalny',
+        firstPastThePost: 'Większościowy',
       },
       usedAsDistrict: 'Użyj jako okręgu wyborczego',
       usedAsDistrictValues: {

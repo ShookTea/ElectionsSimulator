@@ -15,6 +15,7 @@ export default {
       electoralSystem: 'Electoral system',
       electoralSystemValues: {
         proportional: 'Proportional',
+        firstPastThePost: 'First past the post',
       },
       usedAsDistrict: 'Used as a district',
       usedAsDistrictValues: {
