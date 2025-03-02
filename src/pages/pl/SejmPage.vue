@@ -14,8 +14,9 @@ const data = ref<Sejm | null>(null);
 
 const loadData = (year: string) => {
   // noinspection TypeScriptCheckImport
-  import(`../../data/pl/sejm/${year}.ts`).then((module) => {
+  import(`../../data/pl/sejm/${year}.json`).then((module) => {
     data.value = module.default;
+    console.log({ module });
   }).catch(() => {
     router.push('/pl/sejm/2023');
   });

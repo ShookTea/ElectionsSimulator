@@ -38,17 +38,10 @@ async function buildForYear(year: number, manifestPath: string): Promise<void> {
       'gmina',
     ),
   };
-  const resultAsString = JSON.stringify(finalResult, null, 2);
-  const fileContent = [
-    'import { Sejm } from \'@/models/pl/sejm\';',
-    '',
-    'const data: Sejm = ' + resultAsString,
-    '',
-    'export default data;',
-  ].join('\n');
 
+  const resultAsString = JSON.stringify(finalResult, null, 2);
   fs.mkdirSync('src/data/pl/sejm', {recursive: true});
-  fs.writeFileSync(`src/data/pl/sejm/${ year }.ts`, fileContent);
+  fs.writeFileSync(`src/data/pl/sejm/${ year }.json`, resultAsString);
 }
 
 async function buildResultsForGroup(
