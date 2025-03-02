@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import TwoColumnForm from '@/components/ui/TwoColumnForm.vue';
 import { ref, watch } from 'vue';
-import { ProportionalMethod, ResultMethod } from '@/utils/pl/calculate-results';
+import { PROPORTIONAL_METHODS, ProportionalMethod, ResultMethod } from '@/utils/pl/calculate-results';
 import TwoColumnFormSelect from '@/components/ui/TwoColumnFormSelect.vue';
 
 const seatDistribution = defineModel<ResultMethod>('seatDistribution');
@@ -10,7 +10,7 @@ type ElectoralSystem = 'proportional' | 'firstPastThePost';
 const electoralSystem = ref<ElectoralSystem>('proportional');
 
 const electoralSystemValues = ref<ElectoralSystem[]>(['proportional', 'firstPastThePost']);
-const proportionalMethods = ref<ProportionalMethod[]>(['dHondt', 'SainteLague', 'HuntingtonHill']);
+const proportionalMethods = ref<ProportionalMethod[]>(PROPORTIONAL_METHODS);
 
 watch(() => seatDistribution.value, (newValue) => {
   if (newValue === 'fptp') {

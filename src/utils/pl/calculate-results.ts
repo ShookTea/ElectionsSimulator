@@ -6,6 +6,8 @@ export type ProportionalMethod = 'dHondt' | 'SainteLague' | 'HuntingtonHill';
 export type FirstPastThePostMethod = 'fptp';
 export type ResultMethod = ProportionalMethod | FirstPastThePostMethod;
 
+export const PROPORTIONAL_METHODS: ProportionalMethod[] = ['dHondt', 'SainteLague', 'HuntingtonHill'];
+
 export function calculateResults(
   seatDistribution: NumberMap,
   results: DistrictResult[],
