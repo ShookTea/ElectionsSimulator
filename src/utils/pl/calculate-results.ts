@@ -2,7 +2,7 @@ import { NumberMap } from '@/models/utils/number-map';
 import { PartyAbbreviation } from '@/models/pl/party-definition';
 import { DistrictResult } from '@/models/pl/sejm';
 
-export type ResultMethod = 'dHondt';
+export type ResultMethod = 'dHondt' | 'SainteLague' | 'HuntingtonHill';
 
 export function calculateResults(
   seatDistribution: NumberMap,
@@ -37,6 +37,20 @@ function getResultForDistrict(
       resultsForAllowedParties,
       mandatesInDistrict,
       (seats) => seats + 1,
+    );
+  }
+  if (method === 'SainteLague') {
+    return buildResultsWithHighestAveragesMethod(
+      resultsForAllowedParties,
+      mandatesInDistrict,
+      (seats) => seats * 2 + 1,
+    );
+  }
+  if (method === 'HuntingtonHill') {
+    return buildResultsWithHighestAveragesMethod(
+      resultsForAllowedParties,
+      mandatesInDistrict,
+      (seats) => Math.sqrt(seats * (seats + 1)),
     );
   }
 }
