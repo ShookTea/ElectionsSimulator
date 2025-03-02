@@ -50,20 +50,29 @@ function convertToFinalResult(
     mandateOverrideReason: manifest.overrideReason ?? 'wrong_data',
     partyDefinitions: manifest.partyDefinitions
       .map(({columnName, ...rest}) => ({...rest})),
-    districtResults: Object.entries(resultsByDistrict).map(([ districtNumber, result ]) => {
-        const districtResult: DistrictResult = {
-          districtKey: districtNumber,
-          totalVotes: result.totalVotes,
-          population: populationByDistrict[parseInt(districtNumber)],
-          results: convertDistrictToFinalResult(result, manifest),
-        };
-        if (manifest.numberOfMandatesOverride && manifest.numberOfMandatesOverride[districtNumber]) {
-          districtResult.numberOfMandatesUsed = manifest.numberOfMandatesOverride[districtNumber];
-        }
-        return districtResult;
-      },
-    ),
+    districtResults: buildResultsForDistrict(resultsByDistrict, populationByDistrict, manifest, true),
   }
+}
+
+function buildResultsForDistrict(
+  resultsByDistrict: Record<string, Result>,
+  populationByDistrict: Record<string, number>,
+  manifest: Manifest,
+  useOverride: boolean,
+): DistrictResult[] {
+  return Object.entries(resultsByDistrict).map(([ districtNumber, result ]) => {
+      const districtResult: DistrictResult = {
+        districtKey: districtNumber,
+        totalVotes: result.totalVotes,
+        population: populationByDistrict[parseInt(districtNumber)],
+        results: convertDistrictToFinalResult(result, manifest),
+      };
+      if (useOverride && manifest.numberOfMandatesOverride && manifest.numberOfMandatesOverride[districtNumber]) {
+        districtResult.numberOfMandatesUsed = manifest.numberOfMandatesOverride[districtNumber];
+      }
+      return districtResult;
+    },
+  );
 }
 
 function convertDistrictToFinalResult(result: Result, manifest: Manifest): Record<string, number> {
