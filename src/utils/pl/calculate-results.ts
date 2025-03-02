@@ -33,24 +33,29 @@ function getResultForDistrict(
     .reduce((acc, [party, votes]) => ({ ...acc, [party]: votes }), {} as Record<PartyAbbreviation, number>);
 
   if (method === 'dHondt') {
-    return buildResultsWithDHondt(resultsForAllowedParties, mandatesInDistrict);
+    return buildResultsWithHighestAveragesMethod(
+      resultsForAllowedParties,
+      mandatesInDistrict,
+      (seats) => seats + 1,
+    );
   }
 }
 
-function buildResultsWithDHondt(
+function buildResultsWithHighestAveragesMethod(
   votesByParty: Record<PartyAbbreviation, number>,
-  mandatesInDistrict: number
+  mandatesInDistrict: number,
+  currentSeatsToDivisor: (seats: number) => number,
 ): Record<PartyAbbreviation, number> {
   const valuesMap: { party: PartyAbbreviation, value: number }[] = [];
-  for (const [party, votes] of Object.entries(votesByParty)) {
+  for (const [ party, votes ] of Object.entries(votesByParty)) {
     for (let i = 1; i <= mandatesInDistrict; i++) {
-      valuesMap.push({ party: party as PartyAbbreviation, value: votes / i });
+      valuesMap.push({party: party as PartyAbbreviation, value: votes / currentSeatsToDivisor(i - 1)});
     }
   }
   valuesMap.sort((a, b) => b.value - a.value);
   const result: Record<PartyAbbreviation, number> = {};
   for (let i = 0; i < mandatesInDistrict; i++) {
-    const { party } = valuesMap[i];
+    const {party} = valuesMap[i];
     result[party] = (result[party] || 0) + 1;
   }
 
