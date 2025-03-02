@@ -8,6 +8,7 @@
     "build": "vite build --base=\"./\"",
     "build:data": "tsx ./src/scripts/data-build/index.ts",
     "preview": "vite preview",
+    "test:data-validate": "tsx ./src/scripts/result-type-validator/index.ts",
     "test:ts": "vue-tsc --noEmit",
     "test:unit": "vitest --run"
   },

@@ -29,10 +29,12 @@ jobs:
         uses: actions/setup-node@v3
       - name: Install dependencies
         run: npm ci
-      - name: Build data
-        run: npm run build:data
       - name: Run TypeScript tests
         run: npm run test:ts
+      - name: Build data
+        run: npm run build:data
+      - name: Validate built data types
+        run: npm run test:data-validate
       - name: Run unit tests
         run: npm run test:unit
       - name: Build website
