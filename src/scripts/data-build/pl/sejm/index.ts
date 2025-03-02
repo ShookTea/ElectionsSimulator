@@ -23,9 +23,16 @@ async function buildForYear(year: number, manifestPath: string): Promise<void> {
   console.log('Building data for Sejm year', year);
 
   const manifest = loadManifestFromFile(manifestPath);
-  const votingResults = await getResults(manifest);
-  const populationData = await buildPopulationData(manifest);
-  const finalResult = convertToFinalResult(votingResults, populationData, manifest, year);
+  const votingResultsByDistrict = await getResults(manifest);
+  const populationDataByDistrict = await buildPopulationData(manifest);
+  const resultsByDistrict = buildResultsForDistrict(votingResultsByDistrict, populationDataByDistrict, manifest, true);
+  const finalResult: Sejm = {
+    year,
+    mandateOverrideReason: manifest.overrideReason ?? 'wrong_data',
+    partyDefinitions: manifest.partyDefinitions
+      .map(({columnName, ...rest}) => ({...rest})),
+    districtResults: resultsByDistrict,
+  };
   const resultAsString = JSON.stringify(finalResult, null, 2);
   const fileContent = [
     'import { Sejm } from \'@/models/pl/sejm\';',
@@ -37,21 +44,6 @@ async function buildForYear(year: number, manifestPath: string): Promise<void> {
 
   fs.mkdirSync('src/data/pl/sejm', {recursive: true});
   fs.writeFileSync(`src/data/pl/sejm/${ year }.ts`, fileContent);
-}
-
-function convertToFinalResult(
-  resultsByDistrict: Record<number, Result>,
-  populationByDistrict: Record<number, number>,
-  manifest: Manifest,
-  year: number,
-): Sejm {
-  return {
-    year,
-    mandateOverrideReason: manifest.overrideReason ?? 'wrong_data',
-    partyDefinitions: manifest.partyDefinitions
-      .map(({columnName, ...rest}) => ({...rest})),
-    districtResults: buildResultsForDistrict(resultsByDistrict, populationByDistrict, manifest, true),
-  }
 }
 
 function buildResultsForDistrict(
