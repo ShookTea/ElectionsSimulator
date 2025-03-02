@@ -23,6 +23,8 @@ export default {
       seatDistribution: 'Seat distribution',
       seatDistributionValues: {
         dHondt: 'd\'Hondt method',
+        SainteLague: 'Sainte-Laguë method',
+        HuntingtonHill: 'Huntington-Hill method',
       },
       numberOfSeats: 'Number of seats in the Sejm',
       useRealSeats: 'Use real seats distribution',

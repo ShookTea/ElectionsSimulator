@@ -2,7 +2,8 @@ import { NumberMap } from '@/models/utils/number-map';
 import { PartyAbbreviation } from '@/models/pl/party-definition';
 import { DistrictResult } from '@/models/pl/sejm';
 
-export type ResultMethod = 'dHondt' | 'SainteLague' | 'HuntingtonHill';
+export type HighestAveragesMethod = 'dHondt' | 'SainteLague' | 'HuntingtonHill';
+export type ResultMethod = HighestAveragesMethod;
 
 export function calculateResults(
   seatDistribution: NumberMap,

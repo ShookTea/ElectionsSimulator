@@ -23,6 +23,8 @@ export default {
       seatDistribution: 'Dystrybucja mandatów',
       seatDistributionValues: {
         dHondt: 'Metoda d\'Hondta',
+        SainteLague: 'Metoda Sainte-Laguë',
+        HuntingtonHill: 'Metoda Huntingtona-Hilla',
       },
       numberOfSeats: 'Liczba miejsc w Sejmie',
       useRealSeats: 'Użyj faktycznego podziału miejsc',
