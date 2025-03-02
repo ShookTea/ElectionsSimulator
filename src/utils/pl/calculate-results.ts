@@ -15,7 +15,7 @@ export function calculateResults(
   method: ResultMethod
 ): Record<PartyAbbreviation, number> {
   return results.reduce((acc, district) => {
-    const districtResults = getResultForDistrict(district.districtNumber, seatDistribution, results, allowedParties, method);
+    const districtResults = getResultForDistrict(district.districtKey, seatDistribution, results, allowedParties, method);
     for (const [party, mandates] of Object.entries(districtResults)) {
       acc[party as PartyAbbreviation] = (acc[party as PartyAbbreviation] || 0) + mandates;
     }
@@ -24,14 +24,14 @@ export function calculateResults(
 }
 
 function getResultForDistrict(
-  districtKey: number,
+  districtKey: number | string,
   seatDistribution: NumberMap,
   results: DistrictResult[],
   allowedParties: PartyAbbreviation[],
   method: ResultMethod
 ): Record<PartyAbbreviation, number> {
   const mandatesInDistrict = seatDistribution[districtKey];
-  const resultsInDistrict = results.find(r => r.districtNumber === districtKey);
+  const resultsInDistrict = results.find(r => r.districtKey === districtKey);
   const resultsForAllowedParties: Record<PartyAbbreviation, number> = Object.entries(resultsInDistrict.results)
     .filter(([party]) => allowedParties.includes(party as PartyAbbreviation))
     .reduce((acc, [party, votes]) => ({ ...acc, [party]: votes }), {} as Record<PartyAbbreviation, number>);

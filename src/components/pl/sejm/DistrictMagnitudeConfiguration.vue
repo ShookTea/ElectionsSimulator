@@ -14,7 +14,7 @@ const model = defineModel<NumberMap>();
 const mandateOverrides = computed<NumberMap>(() => {
   return props.data.districtResults.reduce((acc, districtResult) => {
     if (districtResult.numberOfMandatesUsed) {
-      acc[districtResult.districtNumber] = districtResult.numberOfMandatesUsed;
+      acc[districtResult.districtKey] = districtResult.numberOfMandatesUsed;
     }
     return acc;
   }, {} as NumberMap);
@@ -22,7 +22,7 @@ const mandateOverrides = computed<NumberMap>(() => {
 
 const populationMap = computed<NumberMap>(() => {
   return props.data.districtResults.reduce((acc, districtResult) => {
-    acc[districtResult.districtNumber] = districtResult.population;
+    acc[districtResult.districtKey] = districtResult.population;
     return acc;
   }, {} as NumberMap);
 });

@@ -52,7 +52,7 @@ function convertToFinalResult(
       .map(({columnName, ...rest}) => ({...rest})),
     districtResults: Object.entries(resultsByDistrict).map(([ districtNumber, result ]) => {
         const districtResult: DistrictResult = {
-          districtNumber: parseInt(districtNumber),
+          districtKey: districtNumber,
           totalVotes: result.totalVotes,
           population: populationByDistrict[parseInt(districtNumber)],
           results: convertDistrictToFinalResult(result, manifest),

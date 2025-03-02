@@ -7,7 +7,7 @@ export type MandateOverrideReason =
   | 'lack_of_data';
 
 export type DistrictResult = {
-  districtNumber: number;
+  districtKey: number | string;
   population: number;
   // The real number of mandates used in the district, in case it differs from the calculated number.
   numberOfMandatesUsed?: number;
