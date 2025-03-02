@@ -3,21 +3,21 @@ import { Result } from '@/scripts/data-build/pl/sejm/types/result';
 import { createCsvParser } from '@/scripts/data-build/csv-reader';
 import { HeaderConfig } from '@/scripts/data-build/pl/sejm/types/header-config';
 
-export async function getResults(manifest: Manifest): Promise<Record<number, Result>> {
+export async function getResults(manifest: Manifest): Promise<Record<string, Result>> {
   const parser = createCsvParser(manifest.file, manifest.csvOptions);
   let headerConfig: HeaderConfig|null = null;
 
-  const resultsByDistrict: Record<number, Result> = {};
+  const resultsByDistrict: Record<string, Result> = {};
 
   for await (const record of parser) {
     if (!headerConfig) {
       headerConfig = buildHeaderConfig(record, manifest);
     } else {
       const rowEntry = buildRowResult(record, headerConfig);
-      if (resultsByDistrict[rowEntry.districtNumber]) {
-        resultsByDistrict[rowEntry.districtNumber] = sumResults(resultsByDistrict[rowEntry.districtNumber], rowEntry);
+      if (resultsByDistrict[rowEntry.districtKey]) {
+        resultsByDistrict[rowEntry.districtKey] = sumResults(resultsByDistrict[rowEntry.districtKey], rowEntry);
       } else {
-        resultsByDistrict[rowEntry.districtNumber] = rowEntry;
+        resultsByDistrict[rowEntry.districtKey] = rowEntry;
       }
     }
   }
@@ -32,14 +32,14 @@ function sumResults(result1: Result, result2: Result): Result {
   });
 
   return {
-    districtNumber: result1.districtNumber,
+    districtKey: result1.districtKey,
     totalVotes: result1.totalVotes + result2.totalVotes,
     partyResults,
   };
 }
 
 function buildRowResult(row: string[], headerConfig: HeaderConfig): Result {
-  const districtNumber = parseInt(row[headerConfig.districtKey]);
+  const districtKey = row[headerConfig.districtKey];
   let totalVotes = 0;
 
   const partyResults: Record<string, number> = {};
@@ -54,7 +54,7 @@ function buildRowResult(row: string[], headerConfig: HeaderConfig): Result {
   });
 
   return {
-    districtNumber,
+    districtKey,
     totalVotes,
     partyResults,
   };

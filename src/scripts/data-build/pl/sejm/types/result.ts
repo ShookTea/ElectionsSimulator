@@ -1,5 +1,5 @@
 export type Result = {
-  districtNumber: number;
+  districtKey: string;
   totalVotes: number;
   partyResults: Record<string, number>; // columnName -> votes
 }
