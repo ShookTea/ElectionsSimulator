@@ -7,7 +7,7 @@ import ThresholdPicker from '@/components/pl/sejm/ThresholdPicker.vue';
 import PartyTable from '@/components/pl/sejm/PartyTable.vue';
 import { getPartiesAboveThreshold } from '@/utils/pl/parties-above-threshold';
 import { PartyAbbreviation } from '@/models/pl/party-definition';
-import { calculateResults } from '@/utils/pl/calculate-results';
+import { calculateResults, ResultMethod } from '@/utils/pl/calculate-results';
 import PartyChart from '@/components/pl/sejm/PartyChart.vue';
 import ElectoralSystemPicker from '@/components/pl/sejm/ElectoralSystemPicker.vue';
 
@@ -15,6 +15,7 @@ const props = defineProps<{
   data: Sejm
 }>();
 
+const seatDistributionMethod = ref<ResultMethod>('dHondt');
 const seatDistribution = ref<NumberMap>({});
 const mainThreshold = ref<number>(5);
 const coalitionThreshold = ref<number>(8);
@@ -35,7 +36,7 @@ const finalResultsByParty = computed<Record<PartyAbbreviation, number>>(() => {
       seatDistribution.value,
       props.data.districtResults,
       partyAbbreviationsAboveThreshold.value,
-      'dHondt',
+      seatDistributionMethod.value,
   );
 });
 </script>
@@ -43,7 +44,9 @@ const finalResultsByParty = computed<Record<PartyAbbreviation, number>>(() => {
 <template>
   <div class="sejm-component-root">
     <div class="sejm-component">
-      <ElectoralSystemPicker />
+      <ElectoralSystemPicker
+          v-model:seat-distribution="seatDistributionMethod"
+      />
       <DistrictMagnitudeConfiguration :data="props.data" v-model="seatDistribution"/>
       <ThresholdPicker
           v-model:main-threshold="mainThreshold"

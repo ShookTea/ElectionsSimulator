@@ -4,7 +4,8 @@ import { ref } from 'vue';
 import { HighestAveragesMethod } from '@/utils/pl/calculate-results';
 import TwoColumnFormSelect from '@/components/ui/TwoColumnFormSelect.vue';
 
-const seatDistribution = ref<HighestAveragesMethod>('dHondt');
+const seatDistribution = defineModel<HighestAveragesMethod>('seatDistribution')
+;
 const seatDistributionOptions = ref<HighestAveragesMethod[]>(['dHondt', 'SainteLague', 'HuntingtonHill']);
 </script>
 
