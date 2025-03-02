@@ -19,7 +19,8 @@ export default {
       },
       usedAsDistrict: 'Used as a district',
       usedAsDistrictValues: {
-        district: 'Electoral district',
+        gmina: 'Gmina',
+        district: 'Electoral district'
       },
       seatDistribution: 'Seat distribution',
       seatDistributionValues: {

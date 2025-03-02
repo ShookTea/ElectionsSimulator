@@ -15,6 +15,8 @@ export type DistrictResult = {
   results: Record<PartyAbbreviation, number>;
 }
 
+export type UseAsDistrict = 'gmina' | 'district';
+
 export type Sejm = {
   year: number;
   partyDefinitions: PartyDefinition[];

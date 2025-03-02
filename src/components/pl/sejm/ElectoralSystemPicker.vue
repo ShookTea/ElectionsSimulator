@@ -3,14 +3,17 @@ import TwoColumnForm from '@/components/ui/TwoColumnForm.vue';
 import { ref, watch } from 'vue';
 import { PROPORTIONAL_METHODS, ProportionalMethod, ResultMethod } from '@/utils/pl/calculate-results';
 import TwoColumnFormSelect from '@/components/ui/TwoColumnFormSelect.vue';
+import { UseAsDistrict } from '@/models/pl/sejm';
 
 const seatDistribution = defineModel<ResultMethod>('seatDistribution');
+const useAsDistrict = defineModel<UseAsDistrict>('useAsDistrict');
 
 type ElectoralSystem = 'proportional' | 'firstPastThePost';
 const electoralSystem = ref<ElectoralSystem>('proportional');
 
 const electoralSystemValues = ref<ElectoralSystem[]>(['proportional', 'firstPastThePost']);
 const proportionalMethods = ref<ProportionalMethod[]>(PROPORTIONAL_METHODS);
+const useAsDistrictValues = ref<UseAsDistrict[]>(['district', 'gmina']);
 
 watch(() => seatDistribution.value, (newValue) => {
   if (newValue === 'fptp') {
@@ -37,8 +40,12 @@ watch(() => electoralSystem.value, (newValue) => {
         :options="electoralSystemValues"
         option-label-prefix="pl.sejm.electoralSystemValues."
     />
-    <span>{{ $t('pl.sejm.usedAsDistrict') }}</span>
-    <span>{{ $t('pl.sejm.usedAsDistrictValues.district') }}</span>
+    <TwoColumnFormSelect
+        v-model="useAsDistrict"
+        :label="$t('pl.sejm.usedAsDistrict')"
+        :options="useAsDistrictValues"
+        option-label-prefix="pl.sejm.usedAsDistrictValues."
+    />
     <TwoColumnFormSelect
         v-if="electoralSystem === 'proportional'"
         v-model="seatDistribution"

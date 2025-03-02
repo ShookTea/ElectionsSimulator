@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Sejm } from '@/models/pl/sejm';
+import { Sejm, UseAsDistrict } from '@/models/pl/sejm';
 import { computed, ref } from 'vue';
 import { NumberMap } from '@/models/utils/number-map';
 import DistrictMagnitudeConfiguration from '@/components/pl/sejm/DistrictMagnitudeConfiguration.vue';
@@ -16,6 +16,7 @@ const props = defineProps<{
 }>();
 
 const seatDistributionMethod = ref<ResultMethod>('dHondt');
+const useAsDistrict = ref<UseAsDistrict>('district');
 const seatDistribution = ref<NumberMap>({});
 const mainThreshold = ref<number>(5);
 const coalitionThreshold = ref<number>(8);
@@ -46,6 +47,7 @@ const finalResultsByParty = computed<Record<PartyAbbreviation, number>>(() => {
     <div class="sejm-component">
       <ElectoralSystemPicker
           v-model:seat-distribution="seatDistributionMethod"
+          v-model:use-as-district="useAsDistrict"
       />
       <DistrictMagnitudeConfiguration
           v-if="(PROPORTIONAL_METHODS as ResultMethod[]).includes(seatDistributionMethod)"
