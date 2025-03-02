@@ -2,11 +2,13 @@ import { NumberMap } from '@/models/utils/number-map';
 import { PartyAbbreviation } from '@/models/pl/party-definition';
 import { DistrictResult } from '@/models/pl/sejm';
 
+export type ResultMethod = 'dHondt';
+
 export function calculateResults(
   seatDistribution: NumberMap,
   results: DistrictResult[],
   allowedParties: PartyAbbreviation[],
-  method: 'DHondt'
+  method: ResultMethod
 ): Record<PartyAbbreviation, number> {
   return results.reduce((acc, district) => {
     const districtResults = getResultForDistrict(district.districtNumber, seatDistribution, results, allowedParties, method);
@@ -22,7 +24,7 @@ function getResultForDistrict(
   seatDistribution: NumberMap,
   results: DistrictResult[],
   allowedParties: PartyAbbreviation[],
-  method: 'DHondt'
+  method: ResultMethod
 ): Record<PartyAbbreviation, number> {
   const mandatesInDistrict = seatDistribution[districtKey];
   const resultsInDistrict = results.find(r => r.districtNumber === districtKey);
@@ -30,7 +32,7 @@ function getResultForDistrict(
     .filter(([party]) => allowedParties.includes(party as PartyAbbreviation))
     .reduce((acc, [party, votes]) => ({ ...acc, [party]: votes }), {} as Record<PartyAbbreviation, number>);
 
-  if (method === 'DHondt') {
+  if (method === 'dHondt') {
     return buildResultsWithDHondt(resultsForAllowedParties, mandatesInDistrict);
   }
 }

@@ -35,7 +35,7 @@ const finalResultsByParty = computed<Record<PartyAbbreviation, number>>(() => {
       seatDistribution.value,
       props.data.districtResults,
       partyAbbreviationsAboveThreshold.value,
-      'DHondt'
+      'dHondt',
   );
 });
 </script>
