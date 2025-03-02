@@ -3,7 +3,7 @@ import { Result } from '@/scripts/data-build/pl/sejm/types/result';
 import { createCsvParser } from '@/scripts/data-build/csv-reader';
 import { HeaderConfig } from '@/scripts/data-build/pl/sejm/types/header-config';
 
-export async function getResults(manifest: Manifest): Promise<Record<string, Result>> {
+export async function getResults(manifest: Manifest, key: 'district'): Promise<Record<string, Result>> {
   const parser = createCsvParser(manifest.file, manifest.csvOptions);
   let headerConfig: HeaderConfig|null = null;
 

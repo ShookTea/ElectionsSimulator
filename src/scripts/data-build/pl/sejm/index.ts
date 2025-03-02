@@ -23,15 +23,16 @@ async function buildForYear(year: number, manifestPath: string): Promise<void> {
   console.log('Building data for Sejm year', year);
 
   const manifest = loadManifestFromFile(manifestPath);
-  const votingResultsByDistrict = await getResults(manifest);
-  const populationDataByDistrict = await buildPopulationData(manifest);
-  const resultsByDistrict = buildResultsForDistrict(votingResultsByDistrict, populationDataByDistrict, manifest, true);
   const finalResult: Sejm = {
     year,
     mandateOverrideReason: manifest.overrideReason ?? 'wrong_data',
     partyDefinitions: manifest.partyDefinitions
       .map(({columnName, ...rest}) => ({...rest})),
-    districtResults: resultsByDistrict,
+    districtResults: await buildResultsForGroup(
+      manifest,
+      'district',
+      true,
+    ),
   };
   const resultAsString = JSON.stringify(finalResult, null, 2);
   const fileContent = [
@@ -46,17 +47,19 @@ async function buildForYear(year: number, manifestPath: string): Promise<void> {
   fs.writeFileSync(`src/data/pl/sejm/${ year }.ts`, fileContent);
 }
 
-function buildResultsForDistrict(
-  resultsByDistrict: Record<string, Result>,
-  populationByDistrict: Record<string, number>,
+async function buildResultsForGroup(
   manifest: Manifest,
-  useOverride: boolean,
-): DistrictResult[] {
-  return Object.entries(resultsByDistrict).map(([ districtNumber, result ]) => {
+  key: 'district',
+  useOverride: boolean = false,
+): Promise<DistrictResult[]> {
+  const votingResults = await getResults(manifest, key);
+  const populationData = await buildPopulationData(manifest, key);
+
+  return Object.entries(votingResults).map(([ districtNumber, result ]) => {
       const districtResult: DistrictResult = {
         districtKey: districtNumber,
         totalVotes: result.totalVotes,
-        population: populationByDistrict[parseInt(districtNumber)],
+        population: populationData[parseInt(districtNumber)],
         results: convertDistrictToFinalResult(result, manifest),
       };
       if (useOverride && manifest.numberOfMandatesOverride && manifest.numberOfMandatesOverride[districtNumber]) {

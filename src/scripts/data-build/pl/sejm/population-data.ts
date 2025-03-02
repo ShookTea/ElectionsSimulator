@@ -1,7 +1,7 @@
 import { Manifest } from '@/scripts/data-build/pl/sejm/types/manifest';
 import { createCsvParser } from '@/scripts/data-build/csv-reader';
 
-export async function buildPopulationData(manifest: Manifest): Promise<Record<string, number>> {
+export async function buildPopulationData(manifest: Manifest, key: 'district'): Promise<Record<string, number>> {
   const parser = createCsvParser(manifest.populationFile, manifest.csvOptions);
 
   let districtKeyColumn: string|null = null;
