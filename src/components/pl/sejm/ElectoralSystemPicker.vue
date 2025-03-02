@@ -20,6 +20,7 @@ watch(() => seatDistribution.value, (newValue) => {
     electoralSystem.value = 'firstPastThePost';
   } else if (proportionalMethods.value.includes(newValue)) {
     electoralSystem.value = 'proportional';
+    useAsDistrict.value = 'district';
   }
 });
 
@@ -28,6 +29,7 @@ watch(() => electoralSystem.value, (newValue) => {
     seatDistribution.value = 'fptp';
   } else if (newValue === 'proportional') {
     seatDistribution.value = 'dHondt';
+    useAsDistrict.value = 'district';
   }
 });
 </script>
@@ -41,6 +43,7 @@ watch(() => electoralSystem.value, (newValue) => {
         option-label-prefix="pl.sejm.electoralSystemValues."
     />
     <TwoColumnFormSelect
+        v-if="electoralSystem === 'firstPastThePost'"
         v-model="useAsDistrict"
         :label="$t('pl.sejm.usedAsDistrict')"
         :options="useAsDistrictValues"
@@ -53,6 +56,5 @@ watch(() => electoralSystem.value, (newValue) => {
         option-label-prefix="pl.sejm.seatDistributionValues."
         :options="proportionalMethods"
     />
-    <span>{{ seatDistribution }}</span>
   </TwoColumnForm>
 </template>

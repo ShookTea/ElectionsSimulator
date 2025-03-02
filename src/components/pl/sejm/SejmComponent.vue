@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Sejm, UseAsDistrict } from '@/models/pl/sejm';
+import { DistrictResult, Sejm, UseAsDistrict } from '@/models/pl/sejm';
 import { computed, ref } from 'vue';
 import { NumberMap } from '@/models/utils/number-map';
 import DistrictMagnitudeConfiguration from '@/components/pl/sejm/DistrictMagnitudeConfiguration.vue';
@@ -22,10 +22,17 @@ const mainThreshold = ref<number>(5);
 const coalitionThreshold = ref<number>(8);
 const nationalMinorityThreshold = ref<number>(0);
 
+const districtResultsToBeUsed = computed<DistrictResult[]>(() => {
+  if (useAsDistrict.value === 'district') {
+    return props.data.districtResults;
+  }
+  return props.data.gminaResults;
+})
+
 const partyAbbreviationsAboveThreshold = computed<string[]>(() => {
   return getPartiesAboveThreshold(
       props.data.partyDefinitions,
-      props.data.districtResults,
+      districtResultsToBeUsed.value,
       mainThreshold.value,
       coalitionThreshold.value,
       nationalMinorityThreshold.value,
@@ -35,7 +42,7 @@ const partyAbbreviationsAboveThreshold = computed<string[]>(() => {
 const finalResultsByParty = computed<Record<PartyAbbreviation, number>>(() => {
   return calculateResults(
       seatDistribution.value,
-      props.data.districtResults,
+      districtResultsToBeUsed.value,
       partyAbbreviationsAboveThreshold.value,
       seatDistributionMethod.value,
   );
@@ -84,7 +91,7 @@ const finalResultsByParty = computed<Record<PartyAbbreviation, number>>(() => {
   flex-direction: column;
   align-items: stretch;
   gap: 1rem;
-  margin: 1rem 0 0 0;
+  margin: 1rem 0 5rem 0;
   width: 40%;
 }
 
