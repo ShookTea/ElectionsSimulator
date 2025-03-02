@@ -12,6 +12,18 @@ export default {
   },
   pl: {
     sejm: {
+      electoralSystem: 'System wyborczy',
+      electoralSystemValues: {
+        proportional: 'Proporcjonalny',
+      },
+      usedAsDistrict: 'Użyj jako okręgu wyborczego',
+      usedAsDistrictValues: {
+        district: 'Okręg wyborczy',
+      },
+      seatDistribution: 'Dystrybucja mandatów',
+      seatDistributionValues: {
+        dHondt: 'Metoda d\'Hondta',
+      },
       numberOfSeats: 'Liczba miejsc w Sejmie',
       useRealSeats: 'Użyj faktycznego podziału miejsc',
       realSeatsExplanation: {

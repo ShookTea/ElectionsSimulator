@@ -12,6 +12,18 @@ export default {
   },
   pl: {
     sejm: {
+      electoralSystem: 'Electoral system',
+      electoralSystemValues: {
+        proportional: 'Proportional',
+      },
+      usedAsDistrict: 'Used as a district',
+      usedAsDistrictValues: {
+        district: 'Electoral district',
+      },
+      seatDistribution: 'Seat distribution',
+      seatDistributionValues: {
+        dHondt: 'd\'Hondt method',
+      },
       numberOfSeats: 'Number of seats in the Sejm',
       useRealSeats: 'Use real seats distribution',
       realSeatsExplanation: {
