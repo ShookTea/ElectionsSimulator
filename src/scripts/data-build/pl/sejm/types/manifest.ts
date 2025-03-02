@@ -14,12 +14,14 @@ export type Manifest = {
   file: string;
   csvOptions: CsvOptions;
   electionCsvColumns: {
-    districtNumber: string;
+    districtKey: string;
+    gminaKey: string;
   };
 
   populationFile: string;
   populationCsvColumns: {
-    districtNumber: string;
+    districtKey: string;
+    gminaKey: string;
     population: string;
     districtType?: string;
   };

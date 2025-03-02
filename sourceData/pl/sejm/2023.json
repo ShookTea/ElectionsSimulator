@@ -7,11 +7,13 @@
     "recordDelimiter": "\n"
   },
   "electionCsvColumns": {
-    "districtNumber": "Nr okręgu"
+    "districtKey": "Nr okręgu",
+    "gminaKey": "TERYT Gminy"
   },
   "populationFile": "sourceData/pl/sejm/2023_population.csv",
   "populationCsvColumns": {
-    "districtNumber": "Okręg Sejm",
+    "districtKey": "Okręg Sejm",
+    "gminaKey": "TERYT Gminy",
     "population": "Mieszkańcy",
     "districtType": "Typ obszaru"
   },

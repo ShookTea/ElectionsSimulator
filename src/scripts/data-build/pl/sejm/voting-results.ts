@@ -39,7 +39,7 @@ function sumResults(result1: Result, result2: Result): Result {
 }
 
 function buildRowResult(row: string[], headerConfig: HeaderConfig): Result {
-  const districtNumber = parseInt(row[headerConfig.districtNumber]);
+  const districtNumber = parseInt(row[headerConfig.districtKey]);
   let totalVotes = 0;
 
   const partyResults: Record<string, number> = {};
@@ -71,7 +71,7 @@ function buildHeaderConfig(headerRow: string[], manifest: Manifest): HeaderConfi
   });
 
   return {
-    districtNumber: headerRow.indexOf(manifest.electionCsvColumns.districtNumber),
+    districtKey: headerRow.indexOf(manifest.electionCsvColumns.districtKey),
     partyColumns,
   };
 }

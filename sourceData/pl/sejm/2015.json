@@ -7,11 +7,13 @@
     "recordDelimiter": "\n"
   },
   "electionCsvColumns": {
-    "districtNumber": "Nr okr.Sejm"
+    "districtKey": "Nr okr.Sejm",
+    "gminaKey": "TERYT"
   },
   "populationFile": "sourceData/pl/sejm/2015.csv",
   "populationCsvColumns": {
-    "districtNumber": "Nr okr.Sejm",
+    "districtKey": "Nr okr.Sejm",
+    "gminaKey": "TERYT",
     "population": "Liczba wyborców"
   },
   "overrideReason": "lack_of_data",

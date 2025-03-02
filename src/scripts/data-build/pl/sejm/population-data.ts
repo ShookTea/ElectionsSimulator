@@ -12,7 +12,7 @@ export async function buildPopulationData(manifest: Manifest): Promise<Record<nu
 
   for await (const record of parser) {
     if (districtNumberColumn === null) {
-      districtNumberColumn = record.indexOf(manifest.populationCsvColumns.districtNumber);
+      districtNumberColumn = record.indexOf(manifest.populationCsvColumns.districtKey);
       populationColumn = record.indexOf(manifest.populationCsvColumns.population);
       districtTypeColumn = record.indexOf(manifest.populationCsvColumns.districtType);
     } else {

@@ -7,11 +7,13 @@
     "recordDelimiter": "\n"
   },
   "electionCsvColumns": {
-    "districtNumber": "Okręg"
+    "districtKey": "Okręg",
+    "gminaKey": "Gmina"
   },
   "populationFile": "sourceData/pl/sejm/2019_population.csv",
   "populationCsvColumns": {
-    "districtNumber": "Numer okręgu do Sejmu",
+    "districtKey": "Numer okręgu do Sejmu",
+    "gminaKey": "Gmina",
     "population": "Mieszkańcy",
     "districtType": "Typ obszaru"
   },

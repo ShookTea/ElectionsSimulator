@@ -1,4 +1,4 @@
 export type HeaderConfig = {
-  districtNumber: number;
+  districtKey: number;
   partyColumns: Record<string, number>; // columnName -> index
 }
