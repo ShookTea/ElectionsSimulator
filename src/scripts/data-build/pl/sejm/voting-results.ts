@@ -68,7 +68,10 @@ function buildRowResult(row: string[], manifest: Manifest, headerConfig: HeaderC
 
   const partyResults: Record<string, number> = {};
   Object.entries(headerConfig.partyColumns).forEach(([columnName, index]) => {
-    const votes = parseInt(row[index]);
+    const votes = parseInt(
+      (row[index] as string)
+        .replace('.', '')
+    );
     if (isNaN(votes)) {
       partyResults[columnName] = 0;
     } else {

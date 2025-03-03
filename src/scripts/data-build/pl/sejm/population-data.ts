@@ -40,7 +40,10 @@ export async function buildPopulationData(
       }
     } else {
       const districtKey = record[districtKeyColumn] ?? '';
-      const population = parseInt(record[populationColumn]);
+      const population = parseInt(
+        (record[populationColumn] as string)
+          .replace('.', '')
+      );
       const districtType = record[districtTypeColumn];
 
       if (manifest.populationIgnoreDistrictTypes?.includes(districtType) ?? false) {
