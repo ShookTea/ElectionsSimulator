@@ -53,7 +53,8 @@ export default {
       },
       usedAsDistrict: 'Used as a district',
       usedAsDistrictValues: {
-        gmina: 'Gmina',
+        gmina: 'Commune (Gmina)',
+        powiat: 'County (Powiat)',
         district: 'Electoral district'
       },
       seatDistribution: 'Seat distribution',

@@ -20,6 +20,7 @@ export default {
       usedAsDistrict: 'Użyj jako okręgu wyborczego',
       usedAsDistrictValues: {
         gmina: 'Gmina',
+        powiat: 'Powiat',
         district: 'Okręg wyborczy',
       },
       seatDistribution: 'Dystrybucja mandatów',
