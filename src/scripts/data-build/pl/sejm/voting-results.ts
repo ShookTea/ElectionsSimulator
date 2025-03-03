@@ -3,11 +3,25 @@ import { Result } from '@/scripts/data-build/pl/sejm/types/result';
 import { createCsvParser } from '@/scripts/data-build/csv-reader';
 import { HeaderConfig } from '@/scripts/data-build/pl/sejm/types/header-config';
 
+function getResultsFileName(
+  manifest: Manifest,
+  key: 'district' | 'gmina' | 'powiat',
+): string {
+  if (key === 'powiat') {
+    return manifest.powiatFile ?? manifest.file;
+  } else {
+    return manifest.file;
+  }
+}
+
 export async function getResults(
   manifest: Manifest,
-  key: 'district' | 'gmina',
+  key: 'district' | 'gmina' | 'powiat',
 ): Promise<Record<string, Result>> {
-  const parser = createCsvParser(manifest.file, manifest.csvOptions);
+  const parser = createCsvParser(
+    getResultsFileName(manifest, key),
+    manifest.csvOptions,
+  );
   let headerConfig: HeaderConfig|null = null;
 
   const resultsByDistrict: Record<string, Result> = {};
@@ -70,7 +84,11 @@ function buildRowResult(row: string[], manifest: Manifest, headerConfig: HeaderC
   };
 }
 
-function buildHeaderConfig(headerRow: string[], manifest: Manifest, key: 'district' | 'gmina'): HeaderConfig {
+function buildHeaderConfig(
+  headerRow: string[],
+  manifest: Manifest,
+  key: 'district' | 'gmina' | 'powiat',
+): HeaderConfig {
   const partyColumns: Record<string, number> = {};
   manifest.partyDefinitions.forEach((partyDefinition) => {
     const index = headerRow.indexOf(partyDefinition.columnName);
@@ -80,7 +98,9 @@ function buildHeaderConfig(headerRow: string[], manifest: Manifest, key: 'distri
     partyColumns[partyDefinition.columnName] = index;
   });
 
-  const districtKey = key === 'district' ? manifest.electionCsvColumns.districtKey : manifest.electionCsvColumns.gminaKey;
+  const districtKey = key === 'district' ? manifest.electionCsvColumns.districtKey : (
+    key === 'gmina' ? manifest.electionCsvColumns.gminaKey : manifest.electionCsvColumns.powiatKey
+  );
 
   return {
     districtKey: headerRow.indexOf(districtKey),

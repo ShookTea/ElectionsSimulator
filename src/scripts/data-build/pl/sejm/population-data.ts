@@ -1,11 +1,25 @@
 import { Manifest } from '@/scripts/data-build/pl/sejm/types/manifest';
 import { createCsvParser } from '@/scripts/data-build/csv-reader';
 
+function getPopulationFileName(
+  manifest: Manifest,
+  key: 'district' | 'gmina' | 'powiat',
+): string {
+  if (key === 'powiat') {
+    return manifest.powiatPopulationFile ?? manifest.populationFile;
+  } else {
+    return manifest.populationFile;
+  }
+}
+
 export async function buildPopulationData(
   manifest: Manifest,
-  key: 'district' | 'gmina',
+  key: 'district' | 'gmina' | 'powiat',
 ): Promise<Record<string, number>> {
-  const parser = createCsvParser(manifest.populationFile, manifest.csvOptions);
+  const parser = createCsvParser(
+    getPopulationFileName(manifest, key),
+    manifest.csvOptions,
+  );
 
   let districtKeyColumn: string|null = null;
   let populationColumn: number|null = null;
@@ -19,8 +33,10 @@ export async function buildPopulationData(
       districtTypeColumn = record.indexOf(manifest.populationCsvColumns.districtType);
       if (key === 'district') {
         districtKeyColumn = record.indexOf(manifest.populationCsvColumns.districtKey);
-      } else {
+      } else if (key === 'gmina') {
         districtKeyColumn = record.indexOf(manifest.populationCsvColumns.gminaKey);
+      } else {
+        districtKeyColumn = record.indexOf(manifest.populationCsvColumns.powiatKey);
       }
     } else {
       const districtKey = record[districtKeyColumn] ?? '';

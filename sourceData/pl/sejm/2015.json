@@ -12,8 +12,8 @@
     "powiatKey": "TERYT"
   },
   "populationFile": "sourceData/pl/sejm/2015.csv",
-  "powiatFile": "2015_powiat.csv",
-  "powiatPopulationFile": "2015_powiat.csv",
+  "powiatFile": "sourceData/pl/sejm/2015_powiat.csv",
+  "powiatPopulationFile": "sourceData/pl/sejm/2015_powiat.csv",
   "populationCsvColumns": {
     "districtKey": "Nr okr.Sejm",
     "gminaKey": "TERYT",

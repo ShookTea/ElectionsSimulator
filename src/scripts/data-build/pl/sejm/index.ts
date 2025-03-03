@@ -33,6 +33,10 @@ async function buildForYear(year: number, manifestPath: string): Promise<void> {
       'district',
       true,
     ),
+    powiatResults: await buildResultsForGroup(
+      manifest,
+      'powiat',
+    ),
     gminaResults: await buildResultsForGroup(
       manifest,
       'gmina',
@@ -46,9 +50,10 @@ async function buildForYear(year: number, manifestPath: string): Promise<void> {
 
 async function buildResultsForGroup(
   manifest: Manifest,
-  key: 'district' | 'gmina',
+  key: 'district' | 'gmina' | 'powiat',
   useOverride: boolean = false,
 ): Promise<DistrictResult[]> {
+  console.log(`- ${ key }`);
   const votingResults = await getResults(manifest, key);
   const populationData = await buildPopulationData(manifest, key);
 
