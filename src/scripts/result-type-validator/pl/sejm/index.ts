@@ -24,12 +24,14 @@ function isSejmData(data: any): data is Sejm {
     || !Array.isArray(data.districtResults)
     || data.gminaResults === undefined
     || !Array.isArray(data.gminaResults)
+    || data.powiatResults === undefined
+    || !Array.isArray(data.powiatResults)
     || data.mandateOverrideReason === undefined
   ) {
     throw new Error('Data is missing required fields');
   }
 
-  const { partyDefinitions, districtResults, gminaResults } = data;
+  const { partyDefinitions, districtResults, gminaResults, powiatResults } = data;
 
   if (!partyDefinitions.every((partyDefinition) => isPartyDefinition(partyDefinition))) {
     throw new Error('Party definitions are not of type PartyDefinition');
@@ -41,6 +43,9 @@ function isSejmData(data: any): data is Sejm {
   }
   if (!gminaResults.every((gminaResult) => isDistrictResult(gminaResult, abbreviations))) {
     throw new Error('Gmina results are not of type DistrictResult');
+  }
+  if (!powiatResults.every((powiatResult) => isDistrictResult(powiatResult, abbreviations))) {
+    throw new Error('Powiat results are not of type DistrictResult');
   }
 
   return data.mandateOverrideReason === 'wrong_data' || data.mandateOverrideReason === 'lack_of_data';

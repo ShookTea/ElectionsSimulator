@@ -18,6 +18,7 @@ export type Manifest = {
     districtKey: string;
     gminaKey: string;
     powiatKey: string;
+    districtType?: string;
   };
 
   populationFile: string;

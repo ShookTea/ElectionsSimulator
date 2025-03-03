@@ -9,7 +9,8 @@
   "electionCsvColumns": {
     "districtKey": "Nr okręgu",
     "gminaKey": "TERYT Gminy",
-    "powiatKey": "Powiat"
+    "powiatKey": "Powiat",
+    "districtType": "Powiat"
   },
   "populationFile": "sourceData/pl/sejm/2023_population.csv",
   "populationCsvColumns": {
@@ -21,6 +22,7 @@
   },
   "populationIgnoreDistrictTypes": [
     "statek",
+    "statki",
     "zagranica"
   ],
   "numberOfMandatesOverride": {

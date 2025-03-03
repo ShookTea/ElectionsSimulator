@@ -62,7 +62,7 @@ function buildRowResult(row: string[], manifest: Manifest, headerConfig: HeaderC
   const districtKey = row[headerConfig.districtKey];
   let totalVotes = 0;
 
-  if (districtKey === '' || manifest.populationIgnoreDistrictTypes?.includes(districtKey)) {
+  if (districtKey === '' || headerConfig.districtTypeKey && manifest.populationIgnoreDistrictTypes?.includes(row[headerConfig.districtTypeKey])) {
     return null;
   }
 
@@ -108,5 +108,8 @@ function buildHeaderConfig(
   return {
     districtKey: headerRow.indexOf(districtKey),
     partyColumns,
+    districtTypeKey: manifest.electionCsvColumns.districtKey
+      ? headerRow.indexOf(manifest.electionCsvColumns.districtType!)
+      : undefined,
   };
 }
