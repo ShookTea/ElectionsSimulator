@@ -26,6 +26,9 @@ const districtResultsToBeUsed = computed<DistrictResult[]>(() => {
   if (useAsDistrict.value === 'district') {
     return props.data.districtResults;
   }
+  if (useAsDistrict.value === 'powiat') {
+    return props.data.powiatResults;
+  }
   return props.data.gminaResults;
 })
 

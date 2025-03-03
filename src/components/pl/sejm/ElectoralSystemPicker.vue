@@ -13,7 +13,7 @@ const electoralSystem = ref<ElectoralSystem>('proportional');
 
 const electoralSystemValues = ref<ElectoralSystem[]>(['proportional', 'firstPastThePost']);
 const proportionalMethods = ref<ProportionalMethod[]>(PROPORTIONAL_METHODS);
-const useAsDistrictValues = ref<UseAsDistrict[]>(['district', 'gmina']);
+const useAsDistrictValues = ref<UseAsDistrict[]>(['district', 'powiat', 'gmina']);
 
 watch(() => seatDistribution.value, (newValue) => {
   if (newValue === 'fptp') {
