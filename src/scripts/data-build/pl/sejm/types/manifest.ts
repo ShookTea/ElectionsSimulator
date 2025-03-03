@@ -17,16 +17,21 @@ export type Manifest = {
   electionCsvColumns: {
     districtKey: string;
     gminaKey: string;
+    powiatKey: string;
   };
 
   populationFile: string;
   populationCsvColumns: {
     districtKey: string;
     gminaKey: string;
+    powiatKey: string;
     population: string;
     districtType?: string;
   };
   populationIgnoreDistrictTypes?: string[];
+
+  powiatFile?: string;
+  powiatPopulationFile?: string;
 
   // The real number of mandates used in the district, in case it differs from the calculated number.
   numberOfMandatesOverride?: Record<string, number>;

@@ -8,12 +8,14 @@
   },
   "electionCsvColumns": {
     "districtKey": "Okręg",
-    "gminaKey": "Kod TERYT"
+    "gminaKey": "Kod TERYT",
+    "powiatKey": "Powiat"
   },
   "populationFile": "sourceData/pl/sejm/2019_population.csv",
   "populationCsvColumns": {
     "districtKey": "Numer okręgu do Sejmu",
     "gminaKey": "TERYT gminy",
+    "powiatKey": "Powiat",
     "population": "Mieszkańcy",
     "districtType": "Typ obszaru"
   },
