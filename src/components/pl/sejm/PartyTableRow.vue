@@ -23,10 +23,10 @@ const currentParty = computed<PartyDefinition>(() => {
       <div class="party-name">
         <span>{{ currentParty.name }}</span>
         <span
-            v-if="$te(`pl.parties.${currentParty.name}`)"
+            v-if="$te(`pl.parties.${currentParty.translationKey ?? currentParty.name}`)"
             class="party-name-translated"
         >
-              {{ $t(`pl.parties.${currentParty.name}`) }}
+              {{ $t(`pl.parties.${currentParty.translationKey ?? currentParty.name}`) }}
             </span>
       </div>
     </td>

@@ -4,6 +4,7 @@ import { MandateOverrideReason } from '@/models/pl/sejm';
 export type PartyDefinition = {
   name: string;
   abbreviation: string;
+  translationKey?: string;
   columnName: string;
   color?: string;
   coalition?: boolean;

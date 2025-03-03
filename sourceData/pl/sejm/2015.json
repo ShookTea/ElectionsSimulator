@@ -101,12 +101,14 @@
     {
       "name": "Kukiz'15",
       "abbreviation": "K15",
+      "translationKey": "Kukiz15",
       "columnName": "7 - Komitet Wyborczy Wyborców „Kukiz'15”",
       "color": "#000000"
     },
     {
       "name": ".Nowoczesna",
       "abbreviation": ".N",
+      "translationKey": "Nowoczesna",
       "columnName": "8 - Komitet Wyborczy Nowoczesna Ryszarda Petru",
       "color": "#005CA9"
     },
@@ -142,6 +144,7 @@
     },
     {
       "name": "KWW Grzegorza Brauna \"Szczęść Boże!\"",
+      "translationKey": "KWW Grzegorza Brauna Szczęść Boże",
       "abbreviation": "GB",
       "columnName": "14 - Komitet Wyborczy Wyborców Grzegorza Brauna „Szczęść Boże!”",
       "color": "#990033"

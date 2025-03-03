@@ -53,7 +53,8 @@ function isPartyDefinition(data: any): data is PartyDefinition {
     && typeof data.name === 'string'
     && (data.color === undefined || typeof data.color === 'string')
     && (data.coalition === undefined || typeof data.coalition === 'boolean')
-    && (data.nationalMinority === undefined || typeof data.nationalMinority === 'boolean');
+    && (data.nationalMinority === undefined || typeof data.nationalMinority === 'boolean')
+    && (data.translationKey === undefined || typeof data.translationKey === 'string');
 }
 
 function isDistrictResult(
